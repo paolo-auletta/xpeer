@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-16T10:21:54Z",
+  "title": "Design System: X-Peer",
+  "extensions": {
+    "colorMeta": {
+      "forest": {
+        "role": "primary",
+        "displayName": "Bocconi Forest",
+        "tonalRamp": [
+          "oklch(15% 0.056 173.3)",
+          "oklch(27% 0.056 173.3)",
+          "oklch(39% 0.056 173.3)",
+          "oklch(51% 0.056 173.3)",
+          "oklch(63% 0.056 173.3)",
+          "oklch(75% 0.056 173.3)",
+          "oklch(87% 0.056 173.3)",
+          "oklch(95% 0.056 173.3)"
+        ]
+      },
+      "notte": {
+        "role": "neutral",
+        "displayName": "Night Forest",
+        "tonalRamp": [
+          "oklch(15% 0.037 174.1)",
+          "oklch(27% 0.037 174.1)",
+          "oklch(39% 0.037 174.1)",
+          "oklch(51% 0.037 174.1)",
+          "oklch(63% 0.037 174.1)",
+          "oklch(75% 0.037 174.1)",
+          "oklch(87% 0.037 174.1)",
+          "oklch(95% 0.037 174.1)"
+        ]
+      },
+      "lime": {
+        "role": "secondary",
+        "displayName": "Handoff Lime",
+        "tonalRamp": [
+          "oklch(15% 0.174 120.8)",
+          "oklch(27% 0.174 120.8)",
+          "oklch(39% 0.174 120.8)",
+          "oklch(51% 0.174 120.8)",
+          "oklch(63% 0.174 120.8)",
+          "oklch(75% 0.174 120.8)",
+          "oklch(87% 0.174 120.8)",
+          "oklch(95% 0.174 120.8)"
+        ]
+      },
+      "olive": {
+        "role": "tertiary",
+        "displayName": "Path Olive",
+        "tonalRamp": [
+          "oklch(15% 0.146 125.9)",
+          "oklch(27% 0.146 125.9)",
+          "oklch(39% 0.146 125.9)",
+          "oklch(51% 0.146 125.9)",
+          "oklch(63% 0.146 125.9)",
+          "oklch(75% 0.146 125.9)",
+          "oklch(87% 0.146 125.9)",
+          "oklch(95% 0.146 125.9)"
+        ]
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "Reading Ivory",
+        "tonalRamp": [
+          "oklch(15% 0.011 100.8)",
+          "oklch(27% 0.011 100.8)",
+          "oklch(39% 0.011 100.8)",
+          "oklch(51% 0.011 100.8)",
+          "oklch(63% 0.011 100.8)",
+          "oklch(75% 0.011 100.8)",
+          "oklch(87% 0.011 100.8)",
+          "oklch(95% 0.011 100.8)"
+        ]
+      },
+      "forest-muted": {
+        "role": "primary",
+        "displayName": "Muted Forest",
+        "tonalRamp": [
+          "oklch(15% 0.051 179.5)",
+          "oklch(27% 0.051 179.5)",
+          "oklch(39% 0.051 179.5)",
+          "oklch(51% 0.051 179.5)",
+          "oklch(63% 0.051 179.5)",
+          "oklch(75% 0.051 179.5)",
+          "oklch(87% 0.051 179.5)",
+          "oklch(95% 0.051 179.5)"
+        ]
+      },
+      "ivory-muted": {
+        "role": "neutral",
+        "displayName": "Soft Ivory",
+        "tonalRamp": [
+          "oklch(15% 0.024 114.6)",
+          "oklch(27% 0.024 114.6)",
+          "oklch(39% 0.024 114.6)",
+          "oklch(51% 0.024 114.6)",
+          "oklch(63% 0.024 114.6)",
+          "oklch(75% 0.024 114.6)",
+          "oklch(87% 0.024 114.6)",
+          "oklch(95% 0.024 114.6)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Primary section promises with short, balanced line breaks."
+      },
+      "display-italic": {
+        "displayName": "Display Italic",
+        "purpose": "Rare opening or quoted promises.",
+        "fontStyle": "italic"
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Human declarations that resolve into a bold conclusion."
+      },
+      "body-large": {
+        "displayName": "Body Large",
+        "purpose": "Explanatory copy with a comfortable editorial measure."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Supporting narrative and card copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Numbers, pins, captions, and navigation cues."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-frame",
+        "value": "0 0.6rem 2rem color-mix(in srgb, var(--notte) 8%, transparent)",
+        "purpose": "Reserved for the compact fixed navigation frame."
+      },
+      {
+        "name": "inset-outline",
+        "value": "inset 0 0 0 1px var(--forest)",
+        "purpose": "Defines secondary controls without lifting them from the page."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-quick",
+        "value": "180ms ease",
+        "purpose": "Button tone and lift changes."
+      },
+      {
+        "name": "underline-reveal",
+        "value": "200ms ease",
+        "purpose": "Navigation underline reveal."
+      },
+      {
+        "name": "handoff-flow",
+        "value": "3.2s linear infinite",
+        "purpose": "A single route signal showing context moving from mentor to mentee."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-tighten",
+        "value": "68rem"
+      },
+      {
+        "name": "stack",
+        "value": "56rem"
+      },
+      {
+        "name": "mobile",
+        "value": "42rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Application Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The compact Forest action used for a clear application path on ivory.",
+      "html": "<a class=\"ds-action ds-action-primary\" href=\"#\"><span>apply as a first year</span><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 4l8 8M6 12h6V6\"/></svg></a>",
+      "css": ".ds-action{align-items:center;display:inline-flex;font-family:Figtree,sans-serif;font-size:.92rem;font-weight:700;gap:1.5rem;justify-content:space-between;min-height:3.2rem;padding:.75rem 1.05rem .75rem 1.2rem;text-decoration:none;transition:transform 180ms ease,background 180ms ease,color 180ms ease}.ds-action span{display:flex;flex-direction:column;line-height:1.15}.ds-action small{font-size:.62rem;font-weight:600;margin-top:.22rem;opacity:.65}.ds-action svg{fill:none;height:1rem;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;width:1rem}.ds-action-primary{background:var(--forest,#0e4034);border-radius:999px;color:var(--ivory,#f5f4ec)}.ds-action-primary:hover{background:var(--notte,#06231c);transform:translateY(-.15rem)}.ds-action-primary:focus-visible{outline:.2rem solid var(--lime,#cdee5c);outline-offset:.25rem}.ds-action-primary:active{transform:translateY(0)}"
+    },
+    {
+      "name": "Secondary Application Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "An outlined parallel path that turns lime when engaged.",
+      "html": "<a class=\"ds-action ds-action-secondary\" href=\"#\"><span>become a mentor</span><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 4l8 8M6 12h6V6\"/></svg></a>",
+      "css": ".ds-action{align-items:center;display:inline-flex;font-family:Figtree,sans-serif;font-size:.92rem;font-weight:700;gap:1.5rem;justify-content:space-between;min-height:3.2rem;padding:.75rem 1.05rem .75rem 1.2rem;text-decoration:none;transition:transform 180ms ease,background 180ms ease,color 180ms ease}.ds-action span{display:flex;flex-direction:column;line-height:1.15}.ds-action small{font-size:.62rem;font-weight:600;margin-top:.22rem;opacity:.65}.ds-action svg{fill:none;height:1rem;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;width:1rem}.ds-action-secondary{background:var(--ivory,#f5f4ec);border-radius:999px;box-shadow:inset 0 0 0 1px var(--forest,#0e4034);color:var(--forest,#0e4034)}.ds-action-secondary:hover{background:var(--lime,#cdee5c);box-shadow:none;color:var(--notte,#06231c);transform:translateY(-.15rem)}.ds-action-secondary:focus-visible{outline:.2rem solid var(--lime,#cdee5c);outline-offset:.25rem}.ds-action-secondary:active{transform:translateY(0)}"
+    },
+    {
+      "name": "Floating Navigation",
+      "kind": "nav",
+      "description": "A compact ivory frame that keeps brand, orientation, and one action close to the content.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a class=\"ds-nav-brand\" href=\"#\">xpeer</a><div class=\"ds-nav-links\"><a href=\"#\">programme</a><a href=\"#\">the people</a><a href=\"#\">who it's for</a></div><a class=\"ds-nav-action\" href=\"#\">apply now<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 4l8 8M6 12h6V6\"/></svg></a></nav>",
+      "css": ".ds-nav{align-items:center;background:color-mix(in srgb,var(--ivory,#f5f4ec) 96%,transparent);border:1px solid color-mix(in srgb,var(--forest,#0e4034) 16%,transparent);border-radius:999px;box-shadow:0 .6rem 2rem color-mix(in srgb,var(--notte,#06231c) 8%,transparent);color:var(--forest,#0e4034);display:grid;font-family:Figtree,sans-serif;grid-template-columns:1fr auto 1fr;height:4rem;padding:0 .55rem 0 1.15rem;width:min(100%,78rem)}.ds-nav a{color:inherit;font-size:.85rem;font-weight:600;text-decoration:none}.ds-nav-brand{font-size:1.15rem!important;font-weight:800!important;justify-self:start}.ds-nav-links{display:flex;gap:2rem}.ds-nav-links a{position:relative}.ds-nav-links a::after{background:currentColor;bottom:-.25rem;content:'';height:1px;left:0;position:absolute;transform:scaleX(0);transform-origin:right;transition:transform 200ms ease;width:100%}.ds-nav-links a:hover::after{transform:scaleX(1);transform-origin:left}.ds-nav-action{align-items:center;background:var(--forest,#0e4034);border-radius:999px;color:var(--ivory,#f5f4ec)!important;display:inline-flex;gap:.8rem;justify-self:end;min-height:2.9rem;padding:.65rem 1rem;transition:background 180ms ease,color 180ms ease,transform 180ms ease}.ds-nav-action svg{fill:none;height:1rem;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;width:1rem}.ds-nav-action:hover{background:var(--lime,#cdee5c);color:var(--notte,#06231c)!important;transform:translateY(-.1rem)}.ds-nav a:focus-visible{outline:.2rem solid var(--lime,#cdee5c);outline-offset:.25rem}"
+    },
+    {
+      "name": "One-Year Marker",
+      "kind": "custom",
+      "description": "A numbered identity pin for a student in the mentorship handoff.",
+      "html": "<span class=\"ds-year-pin\"><b>01</b>first year</span>",
+      "css": ".ds-year-pin{align-items:center;background:var(--ivory,#f5f4ec);border-radius:999px;color:var(--notte,#06231c);display:inline-flex;font-family:Figtree,sans-serif;font-size:.72rem;font-weight:700;gap:.45rem;padding:.35rem .65rem .35rem .35rem;text-transform:uppercase}.ds-year-pin b{align-items:center;background:var(--lime,#cdee5c);border-radius:50%;display:inline-flex;font-size:.78rem;height:2rem;justify-content:center;width:2rem}"
+    },
+    {
+      "name": "Pathway Card",
+      "kind": "card",
+      "description": "An editorial mentorship topic with sequence, one selected illustration, and a large olive title.",
+      "html": "<article class=\"ds-pathway\"><div class=\"ds-pathway-top\"><span>01</span><span class=\"ds-pathway-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 64 64\"><path d=\"M11 48C23 26 33 21 53 14\"/><path d=\"M38 14h15v15\"/><circle cx=\"11\" cy=\"48\" r=\"4\"/></svg></span></div><div class=\"ds-pathway-copy\"><h3>direction</h3><p>which paths genuinely fit you, including the ones with no map</p></div></article>",
+      "css": ".ds-pathway{border-top:1px solid color-mix(in srgb,var(--forest,#0e4034) 32%,transparent);color:var(--forest,#0e4034);display:flex;flex-direction:column;font-family:Figtree,sans-serif;min-height:27rem;padding:1.5rem 4rem 3rem 0}.ds-pathway-top{align-items:flex-start;display:flex;justify-content:space-between}.ds-pathway-top>span:first-child{color:var(--forest-muted,#3e6a61);font-size:.8rem;font-weight:700;letter-spacing:.08em}.ds-pathway-icon{align-items:center;background:var(--notte,#06231c);border-radius:1.15rem;display:flex;height:8rem;justify-content:center;width:8rem}.ds-pathway-icon svg{fill:none;height:4.5rem;stroke:var(--lime,#cdee5c);stroke-linecap:round;stroke-linejoin:round;stroke-width:3;width:4.5rem}.ds-pathway-copy{margin-top:auto;padding-top:4rem}.ds-pathway h3{color:var(--olive,#6b8f14);font-size:4rem;font-weight:700;letter-spacing:-.04em;line-height:.95;margin:0}.ds-pathway p{font-size:1.2rem;line-height:1.42;margin:1.2rem 0 0;max-width:28rem}"
+    },
+    {
+      "name": "Trait Chip",
+      "kind": "chip",
+      "description": "A short human trait label; lime marks the one currently emphasized.",
+      "html": "<div class=\"ds-chip-row\"><span class=\"ds-chip\">curious.</span><span class=\"ds-chip ds-chip-selected\">driven.</span><span class=\"ds-chip\">generous.</span></div>",
+      "css": ".ds-chip-row{display:flex;gap:.45rem}.ds-chip{background:var(--ivory,#f5f4ec);border-radius:999px;color:var(--notte,#06231c);font-family:Figtree,sans-serif;font-size:.72rem;font-weight:700;padding:.45rem .7rem}.ds-chip-selected{background:var(--lime,#cdee5c)}"
+    },
+    {
+      "name": "Audience Path Card",
+      "kind": "card",
+      "description": "One of two equal routes into the same community, with its action anchored at the bottom.",
+      "html": "<article class=\"ds-audience-card\"><span class=\"ds-audience-number\">01</span><div class=\"ds-audience-copy\"><h3>first years</h3><p>who want a head start: curious, ambitious, and ready to ask the right question now.</p></div><a href=\"#\">apply as a first year<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 4l8 8M6 12h6V6\"/></svg></a></article>",
+      "css": ".ds-audience-card{background:var(--forest,#0e4034);border-radius:1.4rem;color:var(--ivory,#f5f4ec);display:flex;flex-direction:column;font-family:Figtree,sans-serif;min-height:34rem;padding:2.5rem}.ds-audience-number{align-self:flex-end;border:1px solid currentColor;border-radius:50%;font-size:.78rem;font-weight:700;padding:.65rem}.ds-audience-copy{margin-top:auto;padding-top:5rem}.ds-audience-card h3{font-size:4rem;font-weight:700;letter-spacing:-.04em;line-height:.94;margin:0 0 1.5rem}.ds-audience-card p{font-size:1.3rem;line-height:1.42;margin:0;max-width:31rem}.ds-audience-card a{align-items:center;border-top:1px solid currentColor;color:inherit;display:flex;font-size:.92rem;font-weight:700;justify-content:space-between;margin-top:4rem;padding-top:1rem;text-decoration:none}.ds-audience-card svg{fill:none;height:1rem;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;width:1rem}.ds-audience-card a:hover{color:var(--lime,#cdee5c)}.ds-audience-card a:focus-visible{outline:.2rem solid var(--lime,#cdee5c);outline-offset:.25rem}"
+    },
+    {
+      "name": "Application Row",
+      "kind": "button",
+      "refersTo": "application-primary",
+      "description": "A large, explicit application route ready to receive its external form destination.",
+      "html": "<button class=\"ds-application\" type=\"button\"><span class=\"ds-application-number\">01</span><span class=\"ds-application-label\"><b>apply as a first year</b></span><span class=\"ds-application-arrow\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M4 4l8 8M6 12h6V6\"/></svg></span></button>",
+      "css": ".ds-application{align-items:center;background:var(--lime,#cdee5c);border:0;border-radius:1rem;color:var(--notte,#06231c);cursor:pointer;display:grid;font-family:Figtree,sans-serif;gap:1rem;grid-template-columns:auto 1fr auto;min-height:6.7rem;opacity:1;padding:1.1rem;text-align:left;width:100%}.ds-application-number,.ds-application-arrow{align-items:center;border:1px solid currentColor;border-radius:50%;display:flex;font-size:.72rem;font-weight:700;height:2.2rem;justify-content:center;width:2.2rem}.ds-application-arrow{background:var(--notte,#06231c);border-color:var(--notte,#06231c);color:var(--ivory,#f5f4ec)}.ds-application-arrow svg{fill:none;height:1rem;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7;width:1rem}.ds-application-label{display:flex;flex-direction:column;gap:.3rem}.ds-application-label b{font-size:1.45rem}"
+    },
+    {
+      "name": "Friendship Statement Panel",
+      "kind": "custom",
+      "description": "A lime editorial room where a light statement resolves into a bold human conclusion.",
+      "html": "<section class=\"ds-statement\"><p>give it a year and it stops feeling like a programme<strong>and starts feeling like a friendship.</strong></p></section>",
+      "css": ".ds-statement{align-items:center;background:var(--lime,#cdee5c);border-radius:1.25rem;color:var(--notte,#06231c);display:flex;font-family:Figtree,sans-serif;justify-content:center;min-height:27rem;overflow:hidden;padding:4rem;position:relative}.ds-statement::after{border:1px solid color-mix(in srgb,var(--forest,#0e4034) 28%,transparent);border-radius:50%;content:'';height:24rem;position:absolute;right:-9rem;top:-9rem;width:24rem}.ds-statement p{font-size:clamp(2.7rem,5.7vw,5.7rem);font-weight:300;letter-spacing:-.04em;line-height:1.06;margin:0;max-width:18ch;position:relative;text-align:center;z-index:1}.ds-statement strong{display:block;font-weight:700;margin-top:.15em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The One-Year Handoff",
+    "overview": "X-Peer makes mentorship visible as one student passing hard-won context to another only a year behind. The world is warm, candid, and editorial: generous ivory reading fields open into full forest rooms, while documentary student photography keeps every promise attached to real people rather than club symbolism.\n\nThe system feels ambitious without hype. Large lowercase Figtree statements carry the narrative, lime marks the moment knowledge or opportunity changes hands, and compact controls keep action close without turning the experience into generic student-organization chrome. Composition should feel deliberately edited, never assembled from arbitrary dividers, interchangeable cards, or abstract network diagrams.",
+    "keyCharacteristics": [
+      "Photo-led and human before diagrammatic or institutional.",
+      "Editorial scale with plainspoken, lowercase copy.",
+      "Ivory reading fields alternating with immersive forest rooms.",
+      "Lime reserved for handoffs, outcomes, and decisive action.",
+      "Compact navigation and clearly distinct audience paths."
+    ],
+    "rules": [
+      {
+        "name": "The Handoff Signal Rule",
+        "body": "Lime marks a transfer, consequence, or next step; it is not ambient decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Room Rule",
+        "body": "Build atmosphere through ivory reading fields and full forest rooms, then use Night Forest only when a deeper, more intimate register is required.",
+        "section": "colors"
+      },
+      {
+        "name": "The One-Family Rule",
+        "body": "Create voice through Figtree weight, scale, italic, and case before introducing another typeface.",
+        "section": "typography"
+      },
+      {
+        "name": "The Resolution Rule",
+        "body": "Light statements may turn bold at their emotional conclusion; do not sprinkle mixed weights without a narrative reason.",
+        "section": "typography"
+      },
+      {
+        "name": "The Structured Relationship Rule",
+        "body": "Every split must express a real relationship—handoff, comparison, or context and proof—not merely fill available width.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Do not scatter ambient card shadows; use tonal rooms, borders, or photographic layering unless an element genuinely floats above the document.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do let documentary student photography carry the human proof, with labels tied to specific people or moments.",
+      "Do use actual supplied X-Peer logos, Figtree files, and the selected supplied path-illustration style.",
+      "Do reserve lime for handoffs, resolved statements, selected details, and decisive actions.",
+      "Do give split audiences two clearly structured paths with equal dignity and distinct color roles.",
+      "Do replace the temporary stock photography with real X-Peer or member photography when it becomes available."
+    ],
+    "donts": [
+      "Don't fall back to generic club chrome, tall navigation, or full-width institutional headers.",
+      "Don't use arbitrary dividers, layouts, or card grids that do not express a content relationship.",
+      "Don't use abstract people/network diagrams when photography or a direct one-to-one handoff can tell the story.",
+      "Don't show doubled icon variants or multiple competing illustration styles for the same idea.",
+      "Don't invent application fields, form behavior, social links, or member claims before those facts exist."
+    ]
+  }
+}
