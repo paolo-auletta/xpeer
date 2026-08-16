@@ -66,11 +66,72 @@
   --color-ivory-muted: #d4d7c5;
 
   --ease-xpeer-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --animate-hero-photo-in: hero-photo-in 900ms var(--ease-xpeer-out) both;
+  --animate-hero-photo-fade: hero-photo-fade 900ms var(--ease-xpeer-out) both;
   --animate-handoff-flow: handoff-flow 3.2s linear infinite;
+  --animate-application-ring-grow: application-ring-grow 1100ms var(--ease-xpeer-out) both;
+
+  @keyframes hero-photo-in {
+    from {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes hero-photo-fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
 
   @keyframes handoff-flow {
     to {
       stroke-dashoffset: -16;
     }
+  }
+
+  @keyframes application-ring-grow {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+}
+
+.people-highlight {
+  --people-highlight-progress: 0;
+  color: var(--color-ivory-muted);
+  color: color-mix(
+    in srgb,
+    var(--color-ivory-muted) calc((1 - var(--people-highlight-progress)) * 100%),
+    var(--color-notte) calc(var(--people-highlight-progress) * 100%)
+  );
+  background-image: linear-gradient(
+    90deg,
+    var(--color-lime) 0%,
+    var(--color-lime) calc(var(--people-highlight-progress) * 100%),
+    transparent calc(var(--people-highlight-progress) * 100%),
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .people-highlight {
+    --people-highlight-progress: 1;
   }
 }

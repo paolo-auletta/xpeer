@@ -5,7 +5,8 @@ export function cn(...classes: Array<string | false | null | undefined>) {
 const displayHeading =
   "m-0 pb-[0.08em] font-bold tracking-[-0.04em] text-balance";
 
-const actionMotion = "group active:[transform:scale(0.97)]";
+const actionMotion =
+  "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]";
 
 export const tw = {
   arrowIcon:
@@ -27,15 +28,16 @@ export const tw = {
   headerAction:
     "inline-flex min-h-[2.9rem] items-center [justify-self:end] gap-[0.8rem] rounded-[999px] bg-forest px-4 py-[0.65rem] text-[0.84rem] font-bold text-ivory no-underline transition-[background,color] [transition-duration:200ms,200ms] [transition-timing-function:ease,ease] hover:bg-lime hover:text-notte motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[2.55rem] max-[42rem]:gap-[0.45rem] max-[42rem]:px-[0.75rem] max-[42rem]:py-[0.6rem] max-[42rem]:text-[0.67rem]",
 
+  heroSection: "bg-notte text-ivory",
   hero:
     "mx-auto grid min-h-svh max-w-[91rem] grid-cols-[minmax(0,1fr)_minmax(29rem,0.92fr)] grid-rows-[1fr_auto] gap-[clamp(2.5rem,4vw,5rem)] px-[var(--page-pad)] pt-[clamp(7.5rem,12vh,9rem)] pb-7 max-[68rem]:grid-cols-[minmax(0,1fr)_minmax(25rem,0.82fr)] max-[68rem]:gap-10 max-[56rem]:grid-cols-1 max-[56rem]:grid-rows-[auto_auto_auto] max-[56rem]:pt-[7.5rem] max-[42rem]:min-h-svh max-[42rem]:max-w-none max-[42rem]:grid-cols-1 max-[42rem]:grid-rows-1 max-[42rem]:gap-0 max-[42rem]:p-0",
   heroCopy:
     "self-center max-w-[46rem] py-8 pb-12 max-[56rem]:pb-0 max-[42rem]:relative max-[42rem]:z-[2] max-[42rem]:max-w-none max-[42rem]:[align-self:end] max-[42rem]:px-[var(--page-pad)] max-[42rem]:pt-0 max-[42rem]:pb-[max(1.2rem,env(safe-area-inset-bottom))] max-[42rem]:text-ivory max-[42rem]:[grid-area:1/1]",
   heroTitle:
-    "m-0 max-w-[14ch] pb-[0.08em] text-[clamp(3.15rem,4.65vw,4.8rem)] leading-[1.04] font-semibold tracking-[-0.035em] text-forest text-balance max-[68rem]:text-[clamp(3.5rem,6.7vw,5rem)] max-[56rem]:max-w-[12ch] max-[42rem]:max-w-[16ch] max-[42rem]:text-[clamp(2.65rem,10.5vw,3.5rem)] max-[42rem]:leading-[0.99] max-[42rem]:tracking-[-0.04em] max-[42rem]:text-ivory",
+    "m-0 max-w-[14ch] pb-[0.08em] text-[clamp(3.15rem,4.65vw,4.8rem)] leading-[1.04] font-semibold tracking-[-0.035em] text-ivory text-balance max-[68rem]:text-[clamp(3.5rem,6.7vw,5rem)] max-[56rem]:max-w-[12ch] max-[42rem]:max-w-[16ch] max-[42rem]:text-[clamp(2.65rem,10.5vw,3.5rem)] max-[42rem]:leading-[0.99] max-[42rem]:tracking-[-0.04em] max-[42rem]:text-ivory",
   heroTitleLine: "block",
   heroTitleAccent:
-    "mt-[0.22em] block font-bold text-accent-text max-[42rem]:mt-[0.28em] max-[42rem]:text-lime",
+    "mt-[0.22em] block font-bold text-lime max-[42rem]:mt-[0.28em] max-[42rem]:text-lime",
   heroSummary:
     "mt-[clamp(1.8rem,3.5vw,2.8rem)] mb-0 max-w-[35rem] text-[clamp(1.08rem,1.45vw,1.32rem)] leading-[1.48] max-[42rem]:mt-4 max-[42rem]:max-w-[33ch] max-[42rem]:text-[clamp(1rem,4.6vw,1.12rem)] max-[42rem]:leading-[1.48] max-[42rem]:tracking-[-0.015em] max-[42rem]:text-ivory-muted",
   heroActions:
@@ -51,7 +53,7 @@ export const tw = {
   heroVisual:
     "relative m-0 aspect-[0.84] min-h-[34rem] max-h-[47rem] self-center overflow-hidden rounded-[1.75rem] max-[68rem]:min-h-0 max-[56rem]:aspect-[1.18] max-[56rem]:min-h-0 max-[42rem]:h-svh max-[42rem]:min-h-svh max-[42rem]:max-h-none max-[42rem]:w-full max-[42rem]:rounded-none max-[42rem]:[aspect-ratio:auto] max-[42rem]:[grid-area:1/1]",
   heroPhoto:
-    "h-full w-full object-cover [object-position:57%_center]",
+    "h-full w-full animate-hero-photo-in object-cover [object-position:57%_center] motion-reduce:animate-hero-photo-fade",
   heroWash:
     "absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,color-mix(in_srgb,var(--color-notte)_76%,transparent))] max-[42rem]:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-notte)_7%,transparent)_0%,color-mix(in_srgb,var(--color-notte)_24%,transparent)_30%,color-mix(in_srgb,var(--color-notte)_83%,transparent)_55%,color-mix(in_srgb,var(--color-notte)_96%,transparent)_100%)]",
   heroHandoff:
@@ -127,7 +129,7 @@ export const tw = {
   peopleParagraph:
     "mt-8 mb-0 text-[clamp(1.05rem,1.35vw,1.2rem)] leading-[1.58] text-ivory-muted",
   peopleHighlight:
-    "box-decoration-clone rounded-[0.15em] bg-lime px-[0.18em] pt-[0.08em] pb-[0.12em] text-[inherit] leading-[inherit] font-bold text-notte",
+    "people-highlight box-decoration-clone rounded-[0.15em] px-[0.18em] pt-[0.08em] pb-[0.12em] leading-[inherit] font-bold",
   peoplePhoto:
     "relative m-0 aspect-[1.16] self-center overflow-hidden rounded-3xl after:absolute after:inset-0 after:bg-[linear-gradient(180deg,transparent_55%,color-mix(in_srgb,var(--color-notte)_64%,transparent))] max-[56rem]:aspect-[1.5] max-[42rem]:aspect-[0.92] max-[42rem]:rounded-2xl",
   peoplePhotoImage:
@@ -183,10 +185,12 @@ export const tw = {
     "absolute right-[-15rem] bottom-[-24rem] h-[58rem] w-[58rem] max-[42rem]:right-[-15rem] max-[42rem]:bottom-[-10rem] max-[42rem]:h-[32rem] max-[42rem]:w-[32rem]",
   applicationRing:
     "absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] rounded-[50%] border border-[color-mix(in_srgb,var(--color-lime)_40%,transparent)]",
+  applicationRingGrow:
+    "animate-application-ring-grow motion-reduce:animate-none",
   applicationRingLarge: "h-full w-full",
-  applicationRingMedium: "h-[70%] w-[70%]",
+  applicationRingMedium: "h-[70%] w-[70%] [animation-delay:80ms]",
   applicationRingSmall:
-    "h-[38%] w-[38%] bg-[color-mix(in_srgb,var(--color-lime)_8%,transparent)]",
+    "h-[38%] w-[38%] bg-[color-mix(in_srgb,var(--color-lime)_8%,transparent)] [animation-delay:160ms]",
 
   footer:
     "bg-notte px-[var(--page-pad)] pt-[clamp(3.5rem,5vw,5rem)] pb-8 text-ivory max-[42rem]:pt-16",

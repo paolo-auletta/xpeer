@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, type RefObject } from "react";
 import logoForest from "../assets/xpeer-logo/lockup/xpeer-lockup-forest.svg";
 import logoIvory from "../assets/xpeer-logo/lockup/xpeer-lockup-ivory.svg";
 import mentorConversation from "../assets/stock/mentor-conversation.jpg";
@@ -41,6 +42,108 @@ const pathways = [
     alt: "A path settling within a wider circle.",
   },
 ] as const;
+
+function useScrollHighlight(): RefObject<HTMLElement | null> {
+  const highlightRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = highlightRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const section = element.closest<HTMLElement>("#people");
+    let frame = 0;
+
+    const updateHighlight = () => {
+      frame = 0;
+
+      if (reducedMotion.matches) {
+        element.style.setProperty("--people-highlight-progress", "1");
+        return;
+      }
+
+      const { top, height } = element.getBoundingClientRect();
+      const sectionBottom = section?.getBoundingClientRect().bottom ?? top + height;
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const scrollY = window.scrollY;
+      const startScroll = scrollY + top + height - viewportHeight - 8;
+      const finishScroll = scrollY + sectionBottom - viewportHeight;
+      const scrollRange = Math.max(1, finishScroll - startScroll);
+      const progress = Math.min(
+        1,
+        Math.max(0, (scrollY - startScroll) / scrollRange),
+      );
+
+      element.style.setProperty(
+        "--people-highlight-progress",
+        progress.toFixed(3),
+      );
+    };
+
+    const scheduleUpdate = () => {
+      if (frame === 0) {
+        frame = window.requestAnimationFrame(updateHighlight);
+      }
+    };
+
+    const onMotionPreferenceChange = () => scheduleUpdate();
+
+    updateHighlight();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate, { passive: true });
+    reducedMotion.addEventListener("change", onMotionPreferenceChange);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      reducedMotion.removeEventListener("change", onMotionPreferenceChange);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return highlightRef;
+}
+
+function useRevealOnView(): [RefObject<HTMLElement | null>, boolean] {
+  const revealRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = revealRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -35% 0px",
+      },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return [revealRef, isVisible];
+}
 
 function ArrowIcon({
   direction = "down-right",
@@ -116,7 +219,10 @@ function HeroVisual() {
           viewBox="0 0 100 32"
           preserveAspectRatio="none"
         >
-          <path className={tw.heroBridgePath} d="M0 16 C 30 -8, 70 -8, 100 16" />
+          <path
+            className={tw.heroBridgePath}
+            d="M0 16 C 30 -8, 70 -8, 100 16"
+          />
         </svg>
         <span className={tw.yearPin}>
           <b className={tw.yearPinNumber}>02</b>
@@ -133,45 +239,47 @@ function HeroVisual() {
 
 function Hero() {
   return (
-    <section className={tw.hero} id="top">
-      <div className={tw.heroCopy}>
-        <h1 className={tw.heroTitle}>
-          <span className={tw.heroTitleLine}>if you want to go fast, go alone.</span>
-          <span className={tw.heroTitleAccent}>
-            if you want to go far, go together.
-          </span>
-        </h1>
-        <p className={tw.heroSummary}>
-          xpeer is a peer mentorship community at Bocconi. mentees and mentors
-          are one year apart, with a circle of people worth knowing.
-        </p>
-        <div className={tw.heroActions} aria-label="Application paths">
-          <a
-            className={cn(
-              tw.action,
-              tw.actionPrimary,
-              tw.actionMotion,
-            )}
-            href="#applications"
-          >
-            <span className={tw.actionLabel}>apply as a mentee</span>
-            <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
-          </a>
-          <a
-            className={cn(
-              tw.action,
-              tw.actionSecondary,
-              tw.actionMotion,
-            )}
-            href="#applications"
-          >
-            <span className={tw.actionLabel}>join as a mentor</span>
-            <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
-          </a>
+    <section className={tw.heroSection} id="top">
+      <div className={tw.hero}>
+        <div className={tw.heroCopy}>
+          <h1 className={tw.heroTitle}>
+            <span className={tw.heroTitleLine}>if you want to go fast, go alone.</span>
+            <span className={tw.heroTitleAccent}>
+              if you want to go far, go together.
+            </span>
+          </h1>
+          <p className={tw.heroSummary}>
+            xpeer is a peer mentorship community at Bocconi. mentees and mentors
+            are one year apart, with a circle of people worth knowing.
+          </p>
+          <div className={tw.heroActions} aria-label="Application paths">
+            <a
+              className={cn(
+                tw.action,
+                tw.actionPrimary,
+                tw.actionMotion,
+              )}
+              href="#applications"
+            >
+              <span className={tw.actionLabel}>apply as a mentee</span>
+              <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
+            </a>
+            <a
+              className={cn(
+                tw.action,
+                tw.actionSecondary,
+                tw.actionMotion,
+              )}
+              href="#applications"
+            >
+              <span className={tw.actionLabel}>join as a mentor</span>
+              <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
+            </a>
+          </div>
         </div>
-      </div>
 
-      <HeroVisual />
+        <HeroVisual />
+      </div>
     </section>
   );
 }
@@ -257,6 +365,8 @@ function Programme() {
 }
 
 function People() {
+  const peopleHighlightRef = useScrollHighlight();
+
   return (
     <section className={tw.people} id="people">
       <div className={tw.peopleCopy}>
@@ -269,7 +379,7 @@ function People() {
         </p>
         <p className={tw.peopleParagraph}>
           a hackathon, a case team, a conference, an idea outside any syllabus:{" "}
-          <strong className={tw.peopleHighlight}>
+          <strong ref={peopleHighlightRef} className={tw.peopleHighlight}>
             here you'll find the people to make it happen.
           </strong>
         </p>
@@ -339,12 +449,32 @@ function Audience() {
 }
 
 function Applications() {
+  const [applicationsRef, applicationsVisible] = useRevealOnView();
+
   return (
-    <section className={tw.applications} id="applications">
+    <section ref={applicationsRef} className={tw.applications} id="applications">
       <div className={tw.applicationsRings} aria-hidden="true">
-        <span className={cn(tw.applicationRing, tw.applicationRingLarge)} />
-        <span className={cn(tw.applicationRing, tw.applicationRingMedium)} />
-        <span className={cn(tw.applicationRing, tw.applicationRingSmall)} />
+        <span
+          className={cn(
+            tw.applicationRing,
+            applicationsVisible && tw.applicationRingGrow,
+            tw.applicationRingLarge,
+          )}
+        />
+        <span
+          className={cn(
+            tw.applicationRing,
+            applicationsVisible && tw.applicationRingGrow,
+            tw.applicationRingMedium,
+          )}
+        />
+        <span
+          className={cn(
+            tw.applicationRing,
+            applicationsVisible && tw.applicationRingGrow,
+            tw.applicationRingSmall,
+          )}
+        />
       </div>
       <div className={tw.applicationsContent}>
         <div>
@@ -437,7 +567,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="bg-ivory">
         <Hero />
         <Problem />
         <Programme />
