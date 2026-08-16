@@ -4,8 +4,7 @@ description: "A warm editorial system for one-year-ahead peer mentorship at Bocc
 colors:
   forest: "#0e4034"
   notte: "#06231c"
-  lime: "#cdee5c"
-  olive: "#6b8f14"
+  lime: "#ceee5c"
   ivory: "#f5f4ec"
   forest-muted: "#3e6a61"
   ivory-muted: "#d4d7c5"
@@ -132,11 +131,9 @@ The palette moves between quiet paper, immersive evergreen rooms, and one vivid 
 
 ### Secondary
 
-- **Handoff Lime** (`#cdee5c`): The visible transfer signal for emphasized conclusions, route marks, selected chips, and the highest-energy action surfaces.
+- **Handoff Lime** (`#ceee5c`): The visible transfer signal for emphasized conclusions, route marks, selected chips, and the highest-energy action surfaces.
 
 ### Tertiary
-
-- **Path Olive** (`#6b8f14`): A quieter directional accent for editorial emphasis and pathway titles when lime would be too loud on ivory.
 
 ### Neutral
 

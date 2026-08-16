@@ -97,7 +97,7 @@ The page follows the supplied copy order, but each section has a conversion job.
 
 ### Audience — “who it's for”
 
-- Two clear paths: first years and second years.
+- Two clear paths: first-year students and second-year students.
 - Explain the mindset and motivation for each audience in the supplied voice.
 - Repeat the relevant CTA close to each path so a visitor does not have to return to the hero.
 

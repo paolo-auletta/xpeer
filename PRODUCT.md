@@ -44,7 +44,7 @@ X-Peer replaces the luck of who a student happens to meet in their first weeks w
 - Name: X-Peer / xpeer.
 - Voice: direct, warm, candid, ambitious without hype; lowercase editorial copy is part of the supplied landing copy.
 - Typeface: Figtree, supplied locally under `assets/Font - Figtree/`.
-- Core palette evidenced by the supplied logo system: forest `#0E4034`, notte `#06231C`, lime `#CDEE5C`, olive `#6B8F14`, and ivory `#F5F4EC`.
+- Core palette evidenced by the supplied logo system: forest `#0E4034`, notte `#06231C`, lime `#CEEE5C`, and ivory `#F5F4EC`.
 - Supplied identity assets in `assets/xpeer-logo/` must be reused rather than redrawn.
 - Supplied topic icons cover direction, studies, getting in, and life in Milan.
 - The attached mentor social design is a reference for the visual language: forest field, lime emphasis, ivory text, generous type, and profile-led storytelling.

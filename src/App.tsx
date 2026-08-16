@@ -1,57 +1,68 @@
-import logoForest from '../assets/xpeer-logo/lockup/xpeer-lockup-forest.svg'
-import logoIvory from '../assets/xpeer-logo/lockup/xpeer-lockup-ivory.svg'
-import mentorConversation from '../assets/stock/mentor-conversation.jpg'
-import communityPhoto from '../assets/stock/xpeer-community.jpg'
-import directionIcon from '../assets/icons/selected/direction.png'
-import studiesIcon from '../assets/icons/selected/your-studies.png'
-import gettingInIcon from '../assets/icons/selected/getting-in.png'
-import milanIcon from '../assets/icons/selected/life-in-milan.png'
+import logoForest from "../assets/xpeer-logo/lockup/xpeer-lockup-forest.svg";
+import logoIvory from "../assets/xpeer-logo/lockup/xpeer-lockup-ivory.svg";
+import mentorConversation from "../assets/stock/mentor-conversation.jpg";
+import communityPhoto from "../assets/stock/xpeer-community.jpg";
+import directionIcon from "../assets/icons/selected/direction.png";
+import studiesIcon from "../assets/icons/selected/your-studies.png";
+import gettingInIcon from "../assets/icons/selected/getting-in.png";
+import milanIcon from "../assets/icons/selected/life-in-milan.png";
 
 const pathways = [
   {
-    number: '01',
-    title: 'direction',
-    description: 'which paths genuinely fit you, including the ones with no map',
-    image: directionIcon,
-    alt: 'A guided line moving forward.',
-  },
-  {
-    number: '02',
-    title: 'your studies',
-    description: 'how to approach Bocconi, and where your effort is best spent',
-    image: studiesIcon,
-    alt: 'An open book with a highlighted point.',
-  },
-  {
-    number: '03',
-    title: 'getting in',
+    number: "01",
+    title: "direction",
     description:
-      'which associations, spring weeks and internships to aim at, and how',
-    image: gettingInIcon,
-    alt: 'A guided path passing through an arch.',
+      "which paths genuinely fit you, including the ones with no map",
+    image: directionIcon,
+    alt: "A guided line moving forward.",
   },
   {
-    number: '04',
-    title: 'life in Milan',
+    number: "02",
+    title: "your studies",
+    description: "how to approach Bocconi, and where your effort is best spent",
+    image: studiesIcon,
+    alt: "An open book with a highlighted point.",
+  },
+  {
+    number: "03",
+    title: "getting in",
+    description:
+      "which associations, spring weeks and internships to aim for, and how",
+    image: gettingInIcon,
+    alt: "A guided path passing through an arch.",
+  },
+  {
+    number: "04",
+    title: "life in Milan",
     description:
       "settling in, finding a rhythm, feeling at home in a city that isn't yours yet",
     image: milanIcon,
-    alt: 'A path settling inside a wider circle.',
+    alt: "A path settling within a wider circle.",
   },
-] as const
+] as const;
 
-function ArrowIcon({ direction = 'down-right' }: { direction?: 'down-right' | 'down' | 'up' }) {
+function ArrowIcon({
+  direction = "down-right",
+  className = "",
+}: {
+  direction?: "down-right" | "down" | "up";
+  className?: string;
+}) {
   const path = {
-    'down-right': 'M4 4l8 8M6 12h6V6',
-    down: 'M8 3v10M4 9l4 4 4-4',
-    up: 'M8 13V3M4 7l4-4 4 4',
-  }[direction]
+    "down-right": "M4 4l8 8M6 12h6V6",
+    down: "M8 3v10M4 9l4 4 4-4",
+    up: "M8 13V3M4 7l4-4 4 4",
+  }[direction];
 
   return (
-    <svg className="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+    <svg
+      className={`arrow-icon ${className}`}
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+    >
       <path d={path} />
     </svg>
-  )
+  );
 }
 
 function Header() {
@@ -67,12 +78,12 @@ function Header() {
         <a href="#who-its-for">who it's for</a>
       </nav>
 
-      <a className="header-action" href="#applications">
-        apply now
-        <ArrowIcon />
+      <a className="header-action action-motion" href="#applications">
+        <span className="action-motion__label">apply now</span>
+        <ArrowIcon className="action-motion__arrow" />
       </a>
     </header>
-  )
+  );
 }
 
 function HeroVisual() {
@@ -107,7 +118,7 @@ function HeroVisual() {
         <strong>close enough to remember.</strong>
       </figcaption>
     </figure>
-  )
+  );
 }
 
 function Hero() {
@@ -119,29 +130,30 @@ function Hero() {
           <span>if you want to go far, go together.</span>
         </h1>
         <p className="hero__summary">
-          xpeer is a peer mentorship community at Bocconi. one year between
-          mentee and mentor, and a circle of people worth knowing.
+          xpeer is a peer mentorship community at Bocconi. mentees and mentors
+          are one year apart, with a circle of people worth knowing.
         </p>
         <div className="hero__actions" aria-label="Application paths">
-          <a className="action action--primary" href="#applications">
-            <span>apply as a mentee</span>
-            <ArrowIcon />
+          <a
+            className="action action--primary action-motion"
+            href="#applications"
+          >
+            <span className="action-motion__label">apply as a mentee</span>
+            <ArrowIcon className="action-motion__arrow" />
           </a>
-          <a className="action action--secondary" href="#applications">
-            <span>become a mentor</span>
-            <ArrowIcon />
+          <a
+            className="action action--secondary action-motion"
+            href="#applications"
+          >
+            <span className="action-motion__label">become a mentor</span>
+            <ArrowIcon className="action-motion__arrow" />
           </a>
         </div>
       </div>
 
       <HeroVisual />
-
-      <a className="hero__scroll" href="#why-xpeer">
-        <span>scroll to discover</span>
-        <ArrowIcon direction="down" />
-      </a>
     </section>
-  )
+  );
 }
 
 function Problem() {
@@ -153,37 +165,31 @@ function Problem() {
           weeks.
         </h2>
         <div className="problem__story">
-          <p className="problem__support">
-            the person who tells you which exam really matters, which association
-            is worth applying to, how spring weeks work, or simply that the
-            confusion you feel is normal.
-          </p>
-          <div className="problem__turn">
-            <p>meeting them usually comes down to luck.</p>
-            <ArrowIcon direction="down" />
+          <p>
+            sometimes, it's the person who tells you which exam really matters,
+            which association is worth applying to, how spring weeks work, or
+            simply that the confusion you feel is normal. meeting them usually
+            comes down to luck.
             <strong>we built something better.</strong>
-          </div>
+          </p>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function Programme() {
   return (
     <section className="programme" id="programme">
       <div className="programme__intro">
-        <h2>one year ahead</h2>
-        <p className="programme__subheading">
-          close enough to remember. far enough ahead to help.
-        </p>
-        <p className="programme__intro-copy">
-          xpeer pairs you with someone just one year ahead: near enough to
-          understand what the beginning feels like, and experienced enough to
-          help you move through it better. not advice from the sidelines, but a
-          person who listens closely, notices what you might miss, tells you the
-          truth when it matters, and reaches out before you know what to ask.
-        </p>
+        <div className="programme__heading">
+          <h2>one year ahead</h2>
+          <div className="programme__detail">
+            <p className="programme__subheading">
+              close enough to remember. far enough ahead to help.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="pathways" aria-label="Four areas of mentorship">
@@ -210,7 +216,7 @@ function Programme() {
         </p>
       </div>
     </section>
-  )
+  );
 }
 
 function People() {
@@ -219,14 +225,15 @@ function People() {
       <div className="people__copy">
         <h2>the people are the opportunity.</h2>
         <p>
-          around your mentor stands the rest of it: students who have founded,
-          competed, researched, interned, moved countries, failed and figured
-          things out the hard way. curious, driven, generous with what they know,
-          and impatient to start what no one assigned them.
+          your mentor connects you to a wider circle: students who have started
+          projects, competed, researched, interned, moved to new countries,
+          failed, and figured things out the hard way. curious, driven,
+          generous with what they know, and impatient to start what no one
+          assigned them.
         </p>
         <p>
-          a hackathon, a case team, a conference, an idea from no syllabus: here
-          you find the people to do it with.
+          a hackathon, a case team, a conference, an idea outside any syllabus:
+          <strong>here you'll find the people to make it happen.</strong>
         </p>
       </div>
       <figure className="people__photo">
@@ -241,7 +248,7 @@ function People() {
         </figcaption>
       </figure>
     </section>
-  )
+  );
 }
 
 function Audience() {
@@ -255,35 +262,35 @@ function Audience() {
         <article className="audience__path audience__path--first">
           <span className="audience__number">01</span>
           <div>
-            <p className="audience__label">first years</p>
+            <p className="audience__label">first-year students</p>
             <p>
-              who want a head start: curious, ambitious, a little impatient, and
-              the kind who would rather ask the right question now than wonder, a
-              year from now, what they missed.
+              they want a head start: they're curious, ambitious, a little
+              impatient, and more likely to ask the right question now than
+              wonder, a year from now, what they missed.
             </p>
           </div>
-          <a href="#applications">
-            <span>apply as a mentee</span>
-            <ArrowIcon />
+          <a className="action-motion" href="#applications">
+            <span className="action-motion__label">apply as a mentee</span>
+            <ArrowIcon className="action-motion__arrow" />
           </a>
         </article>
         <article className="audience__path audience__path--second">
           <span className="audience__number">02</span>
           <div>
-            <p className="audience__label">second years</p>
+            <p className="audience__label">second-year students</p>
             <p>
-              who remember their own beginning clearly enough to want to make
+              they remember their own beginning clearly enough to want to make
               someone else's better.
             </p>
           </div>
-          <a href="#applications">
-            <span>become a mentor</span>
-            <ArrowIcon />
+          <a className="action-motion" href="#applications">
+            <span className="action-motion__label">become a mentor</span>
+            <ArrowIcon className="action-motion__arrow" />
           </a>
         </article>
       </div>
     </section>
-  )
+  );
 }
 
 function Applications() {
@@ -296,34 +303,38 @@ function Applications() {
       </div>
       <div className="applications__content">
         <div className="applications__intro">
-          <h2>applications are open.</h2>
+          <h2>applications for the first cohort are open.</h2>
         </div>
         <div className="applications__actions">
-          <button className="application-button" type="button">
+          <button className="application-button action-motion" type="button">
             <span className="application-button__number">01</span>
-            <span className="application-button__label">
+            <span className="application-button__label action-motion__label">
               <b>apply as a mentee</b>
             </span>
-            <span className="application-button__arrow"><ArrowIcon /></span>
+            <span className="application-button__arrow">
+              <ArrowIcon className="action-motion__arrow" />
+            </span>
           </button>
-          <button className="application-button" type="button">
+          <button className="application-button action-motion" type="button">
             <span className="application-button__number">02</span>
-            <span className="application-button__label">
+            <span className="application-button__label action-motion__label">
               <b>become a mentor</b>
             </span>
-            <span className="application-button__arrow"><ArrowIcon /></span>
+            <span className="application-button__arrow">
+              <ArrowIcon className="action-motion__arrow" />
+            </span>
           </button>
         </div>
         <p className="applications__closing">
-          today's mentees become{' '}
+          today's mentees become{" "}
           <strong>
-            <span className="applications__unbroken">tomorrow's mentors</span>. the
-            circle only ever widens.
+            <span className="applications__unbroken">tomorrow's mentors</span>.
+            the circle only ever widens.
           </strong>
         </p>
       </div>
     </section>
-  )
+  );
 }
 
 function Footer() {
@@ -333,7 +344,9 @@ function Footer() {
         <a href="#top" aria-label="X-Peer, back to top">
           <img src={logoIvory} alt="X-Peer" />
         </a>
-        <p>if you want to go fast, go alone. if you want to go far, go together.</p>
+        <p>
+          if you want to go fast, go alone. if you want to go far, go together.
+        </p>
       </div>
       <div className="site-footer__bottom">
         <p>peer mentorship, one year apart.</p>
@@ -348,7 +361,7 @@ function Footer() {
         </a>
       </div>
     </footer>
-  )
+  );
 }
 
 export default function App() {
@@ -365,5 +378,5 @@ export default function App() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
