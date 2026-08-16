@@ -85,21 +85,23 @@ function HeroVisual() {
         fetchPriority="high"
       />
       <div className="hero-visual__wash" aria-hidden="true" />
-      <svg
-        className="hero-visual__bridge"
-        viewBox="0 0 100 100"
-        aria-hidden="true"
-      >
-        <path d="M45 59 C 51 45, 61 43, 72 51" />
-      </svg>
-      <span className="year-pin year-pin--first" aria-hidden="true">
-        <b>01</b>
-        first year
-      </span>
-      <span className="year-pin year-pin--second" aria-hidden="true">
-        <b>02</b>
-        mentor
-      </span>
+      <div className="hero-visual__handoff" aria-hidden="true">
+        <span className="year-pin">
+          <b>01</b>
+          mentee
+        </span>
+        <svg
+          className="hero-visual__bridge"
+          viewBox="0 0 100 32"
+          preserveAspectRatio="none"
+        >
+          <path d="M0 16 C 30 -8, 70 -8, 100 16" />
+        </svg>
+        <span className="year-pin">
+          <b>02</b>
+          mentor
+        </span>
+      </div>
       <figcaption>
         <span>one year apart</span>
         <strong>close enough to remember.</strong>
@@ -122,7 +124,7 @@ function Hero() {
         </p>
         <div className="hero__actions" aria-label="Application paths">
           <a className="action action--primary" href="#applications">
-            <span>apply as a first year</span>
+            <span>apply as a mentee</span>
             <ArrowIcon />
           </a>
           <a className="action action--secondary" href="#applications">
@@ -146,20 +148,21 @@ function Problem() {
   return (
     <section className="problem" id="why-xpeer">
       <div className="problem__inner">
-        <p className="problem__statement">
+        <h2 className="problem__statement">
           too much of university depends on who you happen to meet in the first
           weeks.
-        </p>
-        <div className="problem__support">
-          <p>
+        </h2>
+        <div className="problem__story">
+          <p className="problem__support">
             the person who tells you which exam really matters, which association
             is worth applying to, how spring weeks work, or simply that the
             confusion you feel is normal.
           </p>
-          <p className="problem__answer">
-            <span>meeting them usually comes down to luck.</span>
+          <div className="problem__turn">
+            <p>meeting them usually comes down to luck.</p>
+            <ArrowIcon direction="down" />
             <strong>we built something better.</strong>
-          </p>
+          </div>
         </div>
       </div>
     </section>
@@ -171,20 +174,16 @@ function Programme() {
     <section className="programme" id="programme">
       <div className="programme__intro">
         <h2>one year ahead</h2>
-        <div className="programme__intro-copy">
-          <p>
-            it begins as mentorship: someone a single year ahead of you. that
-            nearness is the whole point. close enough to remember what the
-            beginning felt like, far enough ahead to help you move through it
-            better.
-          </p>
-          <p>
-            not advice pointing you in a direction, but someone walking with you
-            long enough to make sure you get there: listening closely, noticing
-            what you might miss, telling you the truth when it matters, reaching
-            out before you know what to ask.
-          </p>
-        </div>
+        <p className="programme__subheading">
+          close enough to remember. far enough ahead to help.
+        </p>
+        <p className="programme__intro-copy">
+          xpeer pairs you with someone just one year ahead: near enough to
+          understand what the beginning feels like, and experienced enough to
+          help you move through it better. not advice from the sidelines, but a
+          person who listens closely, notices what you might miss, tells you the
+          truth when it matters, and reaches out before you know what to ask.
+        </p>
       </div>
 
       <div className="pathways" aria-label="Four areas of mentorship">
@@ -237,9 +236,8 @@ function People() {
           loading="lazy"
         />
         <figcaption>
-          <span>curious.</span>
-          <span>driven.</span>
-          <span>generous.</span>
+          <span>the wider circle</span>
+          <strong>people to do it with.</strong>
         </figcaption>
       </figure>
     </section>
@@ -265,7 +263,8 @@ function Audience() {
             </p>
           </div>
           <a href="#applications">
-            apply as a first year <ArrowIcon />
+            <span>apply as a mentee</span>
+            <ArrowIcon />
           </a>
         </article>
         <article className="audience__path audience__path--second">
@@ -278,7 +277,8 @@ function Audience() {
             </p>
           </div>
           <a href="#applications">
-            become a mentor <ArrowIcon />
+            <span>become a mentor</span>
+            <ArrowIcon />
           </a>
         </article>
       </div>
@@ -302,7 +302,7 @@ function Applications() {
           <button className="application-button" type="button">
             <span className="application-button__number">01</span>
             <span className="application-button__label">
-              <b>apply as a first year</b>
+              <b>apply as a mentee</b>
             </span>
             <span className="application-button__arrow"><ArrowIcon /></span>
           </button>
@@ -315,8 +315,11 @@ function Applications() {
           </button>
         </div>
         <p className="applications__closing">
-          today's mentees become tomorrow's mentors.
-          <strong>the circle only ever widens.</strong>
+          today's mentees become{' '}
+          <strong>
+            <span className="applications__unbroken">tomorrow's mentors</span>. the
+            circle only ever widens.
+          </strong>
         </p>
       </div>
     </section>
@@ -330,10 +333,7 @@ function Footer() {
         <a href="#top" aria-label="X-Peer, back to top">
           <img src={logoIvory} alt="X-Peer" />
         </a>
-        <p>
-          <span>if you want to go fast, go alone.</span>
-          <strong>if you want to go far, go together.</strong>
-        </p>
+        <p>if you want to go fast, go alone. if you want to go far, go together.</p>
       </div>
       <div className="site-footer__bottom">
         <p>peer mentorship, one year apart.</p>
