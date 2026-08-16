@@ -145,7 +145,7 @@ function Hero() {
             className="action action--secondary action-motion"
             href="#applications"
           >
-            <span className="action-motion__label">become a mentor</span>
+            <span className="action-motion__label">join as a mentor</span>
             <ArrowIcon className="action-motion__arrow" />
           </a>
         </div>
@@ -227,12 +227,11 @@ function People() {
         <p>
           your mentor connects you to a wider circle: students who have started
           projects, competed, researched, interned, moved to new countries,
-          failed, and figured things out the hard way. curious, driven,
-          generous with what they know, and impatient to start what no one
-          assigned them.
+          failed, and figured things out the hard way. curious, driven, generous
+          with what they know, and impatient to start what no one assigned them.
         </p>
         <p>
-          a hackathon, a case team, a conference, an idea outside any syllabus:
+          a hackathon, a case team, a conference, an idea outside any syllabus:{" "}
           <strong>here you'll find the people to make it happen.</strong>
         </p>
       </div>
@@ -284,7 +283,7 @@ function Audience() {
             </p>
           </div>
           <a className="action-motion" href="#applications">
-            <span className="action-motion__label">become a mentor</span>
+            <span className="action-motion__label">join as a mentor</span>
             <ArrowIcon className="action-motion__arrow" />
           </a>
         </article>
@@ -318,7 +317,7 @@ function Applications() {
           <button className="application-button action-motion" type="button">
             <span className="application-button__number">02</span>
             <span className="application-button__label action-motion__label">
-              <b>become a mentor</b>
+              <b>join as a mentor</b>
             </span>
             <span className="application-button__arrow">
               <ArrowIcon className="action-motion__arrow" />
