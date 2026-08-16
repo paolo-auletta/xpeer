@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Production/build output
+dist/
+dist-ssr/
+
+# Tooling caches
+.vite/
+.cache/
+.turbo/
+*.tsbuildinfo
+
+# Generated Impeccable review renders
+.impeccable/review/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
