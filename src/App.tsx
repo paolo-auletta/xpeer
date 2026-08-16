@@ -6,6 +6,7 @@ import directionIcon from "../assets/icons/selected/direction.png";
 import studiesIcon from "../assets/icons/selected/your-studies.png";
 import gettingInIcon from "../assets/icons/selected/getting-in.png";
 import milanIcon from "../assets/icons/selected/life-in-milan.png";
+import { cn, tw } from "./tailwind";
 
 const pathways = [
   {
@@ -56,7 +57,7 @@ function ArrowIcon({
 
   return (
     <svg
-      className={`arrow-icon ${className}`}
+      className={cn(tw.arrowIcon, className)}
       viewBox="0 0 16 16"
       aria-hidden="true"
     >
@@ -67,20 +68,29 @@ function ArrowIcon({
 
 function Header() {
   return (
-    <header className="site-header">
-      <a className="brand-link" href="#top" aria-label="X-Peer, back to top">
-        <img src={logoForest} alt="X-Peer" />
+    <header className={tw.header}>
+      <a className={tw.brandLink} href="#top" aria-label="X-Peer, back to top">
+        <img className={tw.headerLogo} src={logoForest} alt="X-Peer" />
       </a>
 
-      <nav className="desktop-nav" aria-label="Primary navigation">
-        <a href="#programme">programme</a>
-        <a href="#people">the people</a>
-        <a href="#who-its-for">who it's for</a>
+      <nav className={tw.desktopNav} aria-label="Primary navigation">
+        <a className={tw.desktopNavLink} href="#programme">
+          programme
+        </a>
+        <a className={tw.desktopNavLink} href="#people">
+          the people
+        </a>
+        <a className={tw.desktopNavLink} href="#who-its-for">
+          who it's for
+        </a>
       </nav>
 
-      <a className="header-action action-motion" href="#applications">
-        <span className="action-motion__label">apply now</span>
-        <ArrowIcon className="action-motion__arrow" />
+      <a
+        className={cn(tw.headerAction, tw.actionMotion)}
+        href="#applications"
+      >
+        <span className={tw.actionLabel}>apply now</span>
+        <ArrowIcon className={tw.actionArrow} />
       </a>
     </header>
   );
@@ -88,34 +98,34 @@ function Header() {
 
 function HeroVisual() {
   return (
-    <figure className="hero-visual">
+    <figure className={tw.heroVisual}>
       <img
-        className="hero-visual__photo"
+        className={tw.heroPhoto}
         src={mentorConversation}
         alt="University students talking together between lectures."
         fetchPriority="high"
       />
-      <div className="hero-visual__wash" aria-hidden="true" />
-      <div className="hero-visual__handoff" aria-hidden="true">
-        <span className="year-pin">
-          <b>01</b>
+      <div className={tw.heroWash} aria-hidden="true" />
+      <div className={tw.heroHandoff} aria-hidden="true">
+        <span className={tw.yearPin}>
+          <b className={tw.yearPinNumber}>01</b>
           mentee
         </span>
         <svg
-          className="hero-visual__bridge"
+          className={tw.heroBridge}
           viewBox="0 0 100 32"
           preserveAspectRatio="none"
         >
-          <path d="M0 16 C 30 -8, 70 -8, 100 16" />
+          <path className={tw.heroBridgePath} d="M0 16 C 30 -8, 70 -8, 100 16" />
         </svg>
-        <span className="year-pin">
-          <b>02</b>
+        <span className={tw.yearPin}>
+          <b className={tw.yearPinNumber}>02</b>
           mentor
         </span>
       </div>
-      <figcaption>
-        <span>one year apart</span>
-        <strong>close enough to remember.</strong>
+      <figcaption className={tw.heroCaption}>
+        <span className={tw.captionLabel}>one year apart</span>
+        <strong className={tw.captionStrong}>close enough to remember.</strong>
       </figcaption>
     </figure>
   );
@@ -123,30 +133,40 @@ function HeroVisual() {
 
 function Hero() {
   return (
-    <section className="hero" id="top">
-      <div className="hero__copy">
-        <h1>
-          <span>if you want to go fast, go alone.</span>
-          <span>if you want to go far, go together.</span>
+    <section className={tw.hero} id="top">
+      <div className={tw.heroCopy}>
+        <h1 className={tw.heroTitle}>
+          <span className={tw.heroTitleLine}>if you want to go fast, go alone.</span>
+          <span className={tw.heroTitleAccent}>
+            if you want to go far, go together.
+          </span>
         </h1>
-        <p className="hero__summary">
+        <p className={tw.heroSummary}>
           xpeer is a peer mentorship community at Bocconi. mentees and mentors
           are one year apart, with a circle of people worth knowing.
         </p>
-        <div className="hero__actions" aria-label="Application paths">
+        <div className={tw.heroActions} aria-label="Application paths">
           <a
-            className="action action--primary action-motion"
+            className={cn(
+              tw.action,
+              tw.actionPrimary,
+              tw.actionMotion,
+            )}
             href="#applications"
           >
-            <span className="action-motion__label">apply as a mentee</span>
-            <ArrowIcon className="action-motion__arrow" />
+            <span className={tw.actionLabel}>apply as a mentee</span>
+            <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
           </a>
           <a
-            className="action action--secondary action-motion"
+            className={cn(
+              tw.action,
+              tw.actionSecondary,
+              tw.actionMotion,
+            )}
             href="#applications"
           >
-            <span className="action-motion__label">join as a mentor</span>
-            <ArrowIcon className="action-motion__arrow" />
+            <span className={tw.actionLabel}>join as a mentor</span>
+            <ArrowIcon className={cn(tw.actionIcon, tw.actionArrow)} />
           </a>
         </div>
       </div>
@@ -158,19 +178,21 @@ function Hero() {
 
 function Problem() {
   return (
-    <section className="problem" id="why-xpeer">
-      <div className="problem__inner">
-        <h2 className="problem__statement">
+    <section className={tw.problem} id="why-xpeer">
+      <div className={tw.problemInner}>
+        <h2 className={tw.problemStatement}>
           too much of university depends on who you happen to meet in the first
           weeks.
         </h2>
-        <div className="problem__story">
-          <p>
+        <div className={tw.problemStory}>
+          <p className={tw.problemStoryText}>
             sometimes, it's the person who tells you which exam really matters,
             which association is worth applying to, how spring weeks work, or
             simply that the confusion you feel is normal. meeting them usually
             comes down to luck.
-            <strong>we built something better.</strong>
+            <strong className={tw.problemStoryStrong}>
+              we built something better.
+            </strong>
           </p>
         </div>
       </div>
@@ -180,39 +202,54 @@ function Problem() {
 
 function Programme() {
   return (
-    <section className="programme" id="programme">
-      <div className="programme__intro">
-        <div className="programme__heading">
-          <h2>one year ahead</h2>
-          <div className="programme__detail">
-            <p className="programme__subheading">
+    <section className={tw.programme} id="programme">
+      <div className={tw.programmeIntro}>
+        <div className={tw.programmeHeading}>
+          <h2 className={tw.programmeTitle}>one year ahead</h2>
+          <div>
+            <p className={tw.programmeSubheading}>
               close enough to remember. far enough ahead to help.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="pathways" aria-label="Four areas of mentorship">
-        {pathways.map((pathway) => (
-          <article className="pathway" key={pathway.title}>
-            <div className="pathway__topline">
-              <span>{pathway.number}</span>
-              <div className="pathway__image">
-                <img src={pathway.image} alt={pathway.alt} loading="lazy" />
+      <div className={tw.pathways} aria-label="Four areas of mentorship">
+        {pathways.map((pathway, index) => (
+          <article
+            className={cn(
+              tw.pathway,
+              index % 2 === 1 && tw.pathwayEven,
+              index >= 2 && tw.pathwayTopBorder,
+              index === 1 && tw.pathwayMobileTopBorder,
+            )}
+            key={pathway.title}
+          >
+            <div className={tw.pathwayTopline}>
+              <span className={tw.pathwayNumber}>{pathway.number}</span>
+              <div className={tw.pathwayImage}>
+                <img
+                  className={tw.pathwayImageContent}
+                  src={pathway.image}
+                  alt={pathway.alt}
+                  loading="lazy"
+                />
               </div>
             </div>
-            <div className="pathway__copy">
-              <h3>{pathway.title}</h3>
-              <p>{pathway.description}</p>
+            <div className={tw.pathwayCopy}>
+              <h3 className={tw.pathwayTitle}>{pathway.title}</h3>
+              <p className={tw.pathwayDescription}>{pathway.description}</p>
             </div>
           </article>
         ))}
       </div>
 
-      <div className="friendship-statement">
-        <p>
+      <div className={tw.friendship}>
+        <p className={tw.friendshipText}>
           give it a year and it stops feeling like a programme
-          <strong>and starts feeling like a friendship.</strong>
+          <strong className={tw.friendshipStrong}>
+            and starts feeling like a friendship.
+          </strong>
         </p>
       </div>
     </section>
@@ -221,29 +258,32 @@ function Programme() {
 
 function People() {
   return (
-    <section className="people" id="people">
-      <div className="people__copy">
-        <h2>the people are the opportunity.</h2>
-        <p>
+    <section className={tw.people} id="people">
+      <div className={tw.peopleCopy}>
+        <h2 className={tw.peopleTitle}>the people are the opportunity.</h2>
+        <p className={tw.peopleParagraph}>
           your mentor connects you to a wider circle: students who have started
           projects, competed, researched, interned, moved to new countries,
           failed, and figured things out the hard way. curious, driven, generous
           with what they know, and impatient to start what no one assigned them.
         </p>
-        <p>
+        <p className={tw.peopleParagraph}>
           a hackathon, a case team, a conference, an idea outside any syllabus:{" "}
-          <strong>here you'll find the people to make it happen.</strong>
+          <strong className={tw.peopleHighlight}>
+            here you'll find the people to make it happen.
+          </strong>
         </p>
       </div>
-      <figure className="people__photo">
+      <figure className={tw.peoplePhoto}>
         <img
+          className={tw.peoplePhotoImage}
           src={communityPhoto}
           alt="A group of university students talking together in a lecture hall."
           loading="lazy"
         />
-        <figcaption>
-          <span>the wider circle</span>
-          <strong>people to do it with.</strong>
+        <figcaption className={tw.peopleCaption}>
+          <span className={tw.captionLabel}>the wider circle</span>
+          <strong className={tw.captionStrong}>people to do it with.</strong>
         </figcaption>
       </figure>
     </section>
@@ -252,39 +292,45 @@ function People() {
 
 function Audience() {
   return (
-    <section className="audience" id="who-its-for">
-      <div className="audience__heading">
-        <h2>who it's for</h2>
-        <p>same community. two ways in.</p>
+    <section className={tw.audience} id="who-its-for">
+      <div className={tw.audienceHeading}>
+        <h2 className={tw.audienceTitle}>who it's for</h2>
+        <p className={tw.audienceSubheading}>same community. two ways in.</p>
       </div>
-      <div className="audience__split">
-        <article className="audience__path audience__path--first">
-          <span className="audience__number">01</span>
-          <div>
-            <p className="audience__label">first-year students</p>
-            <p>
+      <div className={tw.audienceSplit}>
+        <article className={cn(tw.audiencePath, tw.audiencePathFirst)}>
+          <span className={tw.audienceNumber}>01</span>
+          <div className={tw.audiencePathCopy}>
+            <p className={tw.audienceLabel}>first-year students</p>
+            <p className={tw.audienceDescription}>
               they want a head start: they're curious, ambitious, a little
               impatient, and more likely to ask the right question now than
               wonder, a year from now, what they missed.
             </p>
           </div>
-          <a className="action-motion" href="#applications">
-            <span className="action-motion__label">apply as a mentee</span>
-            <ArrowIcon className="action-motion__arrow" />
+          <a
+            className={cn(tw.audienceLink, tw.actionMotion)}
+            href="#applications"
+          >
+            <span className={tw.actionLabel}>apply as a mentee</span>
+            <ArrowIcon className={tw.actionArrow} />
           </a>
         </article>
-        <article className="audience__path audience__path--second">
-          <span className="audience__number">02</span>
-          <div>
-            <p className="audience__label">second-year students</p>
-            <p>
+        <article className={cn(tw.audiencePath, tw.audiencePathSecond)}>
+          <span className={tw.audienceNumber}>02</span>
+          <div className={tw.audiencePathCopy}>
+            <p className={tw.audienceLabel}>second-year students</p>
+            <p className={tw.audienceDescription}>
               they remember their own beginning clearly enough to want to make
               someone else's better.
             </p>
           </div>
-          <a className="action-motion" href="#applications">
-            <span className="action-motion__label">join as a mentor</span>
-            <ArrowIcon className="action-motion__arrow" />
+          <a
+            className={cn(tw.audienceLink, tw.actionMotion)}
+            href="#applications"
+          >
+            <span className={tw.actionLabel}>join as a mentor</span>
+            <ArrowIcon className={tw.actionArrow} />
           </a>
         </article>
       </div>
@@ -294,40 +340,56 @@ function Audience() {
 
 function Applications() {
   return (
-    <section className="applications" id="applications">
-      <div className="applications__rings" aria-hidden="true">
-        <span />
-        <span />
-        <span />
+    <section className={tw.applications} id="applications">
+      <div className={tw.applicationsRings} aria-hidden="true">
+        <span className={cn(tw.applicationRing, tw.applicationRingLarge)} />
+        <span className={cn(tw.applicationRing, tw.applicationRingMedium)} />
+        <span className={cn(tw.applicationRing, tw.applicationRingSmall)} />
       </div>
-      <div className="applications__content">
-        <div className="applications__intro">
-          <h2>applications for the first cohort are open.</h2>
+      <div className={tw.applicationsContent}>
+        <div>
+          <h2 className={tw.applicationsTitle}>
+            applications for the first cohort are open.
+          </h2>
         </div>
-        <div className="applications__actions">
-          <button className="application-button action-motion" type="button">
-            <span className="application-button__number">01</span>
-            <span className="application-button__label action-motion__label">
-              <b>apply as a mentee</b>
+        <div className={tw.applicationsActions}>
+          <button
+            className={cn(
+              tw.applicationButton,
+              tw.applicationButtonPrimary,
+              tw.actionMotion,
+            )}
+            type="button"
+          >
+            <span className={tw.applicationButtonNumber}>01</span>
+            <span className={cn(tw.applicationButtonLabel, tw.actionLabel)}>
+              <b className={tw.applicationButtonLabelStrong}>apply as a mentee</b>
             </span>
-            <span className="application-button__arrow">
-              <ArrowIcon className="action-motion__arrow" />
+            <span className={tw.applicationButtonArrow}>
+              <ArrowIcon className={tw.actionArrow} />
             </span>
           </button>
-          <button className="application-button action-motion" type="button">
-            <span className="application-button__number">02</span>
-            <span className="application-button__label action-motion__label">
-              <b>join as a mentor</b>
+          <button
+            className={cn(
+              tw.applicationButton,
+              tw.applicationButtonSecondary,
+              tw.actionMotion,
+            )}
+            type="button"
+          >
+            <span className={tw.applicationButtonNumber}>02</span>
+            <span className={cn(tw.applicationButtonLabel, tw.actionLabel)}>
+              <b className={tw.applicationButtonLabelStrong}>join as a mentor</b>
             </span>
-            <span className="application-button__arrow">
-              <ArrowIcon className="action-motion__arrow" />
+            <span className={tw.applicationButtonArrow}>
+              <ArrowIcon className={tw.actionArrow} />
             </span>
           </button>
         </div>
-        <p className="applications__closing">
+        <p className={tw.applicationsClosing}>
           today's mentees become{" "}
-          <strong>
-            <span className="applications__unbroken">tomorrow's mentors</span>.
+          <strong className={tw.applicationsClosingStrong}>
+            <span className={tw.applicationsUnbroken}>tomorrow's mentors</span>.
             the circle only ever widens.
           </strong>
         </p>
@@ -338,24 +400,32 @@ function Applications() {
 
 function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="site-footer__lead">
+    <footer className={tw.footer}>
+      <div className={tw.footerLead}>
         <a href="#top" aria-label="X-Peer, back to top">
-          <img src={logoIvory} alt="X-Peer" />
+          <img className={tw.footerLogo} src={logoIvory} alt="X-Peer" />
         </a>
-        <p>
+        <p className={tw.footerLeadText}>
           if you want to go fast, go alone. if you want to go far, go together.
         </p>
       </div>
-      <div className="site-footer__bottom">
-        <p>peer mentorship, one year apart.</p>
-        <nav aria-label="Footer navigation">
-          <a href="#programme">programme</a>
-          <a href="#people">people</a>
-          <a href="#who-its-for">who it's for</a>
-          <a href="#applications">applications</a>
+      <div className={tw.footerBottom}>
+        <p className={tw.footerMeta}>peer mentorship, one year apart.</p>
+        <nav className={tw.footerNav} aria-label="Footer navigation">
+          <a className={tw.footerNavLink} href="#programme">
+            programme
+          </a>
+          <a className={tw.footerNavLink} href="#people">
+            people
+          </a>
+          <a className={tw.footerNavLink} href="#who-its-for">
+            who it's for
+          </a>
+          <a className={tw.footerNavLink} href="#applications">
+            applications
+          </a>
         </nav>
-        <a className="site-footer__top" href="#top">
+        <a className={tw.footerTop} href="#top">
           back to top <ArrowIcon direction="up" />
         </a>
       </div>
