@@ -48,6 +48,14 @@
 
 @font-face {
   font-family: "Figtree";
+  src: url("../assets/Font - Figtree/Figtree-900.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
   src: url("../assets/Font - Figtree/Figtree-700-Italic.ttf") format("truetype");
   font-style: italic;
   font-weight: 700;
@@ -70,6 +78,7 @@
   --animate-hero-photo-fade: hero-photo-fade 900ms var(--ease-xpeer-out) both;
   --animate-handoff-flow: handoff-flow 3.2s linear infinite;
   --animate-application-ring-grow: application-ring-grow 1100ms var(--ease-xpeer-out) both;
+  --animate-hero-underline: hero-underline-reveal 700ms var(--ease-xpeer-out) 500ms both;
 
   @keyframes hero-photo-in {
     from {
@@ -110,6 +119,39 @@
       transform: translate(-50%, -50%) scale(1);
     }
   }
+
+  @keyframes hero-underline-reveal {
+    from {
+      opacity: 0.45;
+      transform: scaleX(0);
+    }
+
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+}
+
+.hero-underline {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.hero-underline::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.08em;
+  left: 0;
+  height: 0.1em;
+  min-height: 0.14rem;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: var(--animate-hero-underline);
 }
 
 .people-highlight {
@@ -131,6 +173,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-underline::after {
+    animation: none;
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
   .people-highlight {
     --people-highlight-progress: 1;
   }
