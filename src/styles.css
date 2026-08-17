@@ -151,6 +151,14 @@
   animation: var(--animate-hero-underline);
 }
 
+.hero-underline--on-reveal::after {
+  animation: none;
+}
+
+.hero-underline--on-reveal.hero-underline--revealed::after {
+  animation: var(--animate-hero-underline);
+}
+
 .people-highlight {
   --people-highlight-progress: 0;
   color: var(--color-ivory-muted);

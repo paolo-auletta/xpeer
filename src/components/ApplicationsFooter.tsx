@@ -49,8 +49,18 @@ export function Applications() {
       <ApplicationRings state={applicationsRevealState} />
       <div className="relative z-[2] mx-auto grid max-w-[91rem] grid-cols-[minmax(0,1fr)_minmax(23rem,0.72fr)] gap-[clamp(3rem,7vw,8rem)] max-[56rem]:grid-cols-1 max-[42rem]:gap-10">
         <div>
-          <h2 className="m-0 pb-[0.08em] font-bold tracking-[-0.04em] text-balance max-w-[10ch] text-[clamp(4rem,7.5vw,7.2rem)] leading-none max-[42rem]:max-w-[9ch] max-[42rem]:text-[clamp(3.6rem,16vw,4.7rem)]">
-            applications for the first cohort are open.
+          <h2 className="m-0 pb-[0.08em] font-extrabold tracking-[-0.04em] text-balance max-w-[10ch] text-[clamp(4rem,7.5vw,7.2rem)] leading-none max-[42rem]:max-w-[9ch] max-[42rem]:text-[clamp(3.6rem,16vw,4.7rem)]">
+            applications for the first cohort{" "}
+            <span
+              className={cn(
+                "hero-underline hero-underline--on-reveal text-lime",
+                applicationsRevealState === "revealed" &&
+                  "hero-underline--revealed",
+              )}
+            >
+              are open
+            </span>
+            .
           </h2>
         </div>
         <div className="grid self-center gap-[0.7rem]">
@@ -130,10 +140,16 @@ export function Footer() {
           className="flex gap-[clamp(1rem,2.5vw,2.3rem)] max-[42rem]:flex-wrap max-[42rem]:gap-x-6 max-[42rem]:gap-y-4"
           aria-label="Footer navigation"
         >
-          <a className="text-[0.85rem] font-semibold no-underline" href="#programme">
+          <a
+            className="text-[0.85rem] font-semibold no-underline"
+            href="#programme"
+          >
             programme
           </a>
-          <a className="text-[0.85rem] font-semibold no-underline" href="#people">
+          <a
+            className="text-[0.85rem] font-semibold no-underline"
+            href="#people"
+          >
             people
           </a>
           <a

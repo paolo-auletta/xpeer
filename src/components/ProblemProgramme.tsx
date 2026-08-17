@@ -41,7 +41,7 @@ export function Problem() {
       id="why-xpeer"
     >
       <div className="mx-auto grid max-w-[91rem] grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] gap-[clamp(4rem,8vw,9rem)] max-[56rem]:grid-cols-1 max-[42rem]:gap-9">
-        <h2 className="m-0 max-w-[17ch] [align-self:start] pb-[0.08em] text-[clamp(3.2rem,5.2vw,5.6rem)] leading-[1.02] font-semibold tracking-[-0.035em] text-balance max-[42rem]:max-w-[16ch] max-[42rem]:text-[clamp(2.65rem,10.5vw,3.5rem)] max-[42rem]:leading-none">
+        <h2 className="m-0 max-w-[17ch] [align-self:start] pb-[0.08em] text-[clamp(3.2rem,5.2vw,5.6rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance max-[42rem]:max-w-[16ch] max-[42rem]:text-[clamp(2.65rem,10.5vw,3.5rem)] max-[42rem]:leading-none">
           too much of university depends on who you happen to meet in the first
           weeks.
         </h2>
