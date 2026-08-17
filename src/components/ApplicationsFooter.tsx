@@ -58,9 +58,8 @@ export function Applications() {
                   "hero-underline--revealed",
               )}
             >
-              are open
+              are open.
             </span>
-            .
           </h2>
         </div>
         <div className="grid self-center gap-[0.7rem]">
