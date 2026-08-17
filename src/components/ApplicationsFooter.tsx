@@ -1,8 +1,9 @@
 import logoIvory from "../../assets/xpeer-logo/lockup/xpeer-lockup-ivory.svg";
 import { type RevealState, useRevealOnView } from "../hooks/useLandingMotion";
-import { applicationLinks } from "../lib/applicationLinks";
+import { applicationForms } from "../lib/applicationLinks";
 import { cn } from "../lib/cn";
 import { ActionContent, actionPressMotion } from "./ActionContent";
+import { ApplicationLink } from "./ApplicationLink";
 import { ArrowIcon } from "./ArrowIcon";
 
 const applicationRingSizes = [
@@ -63,13 +64,13 @@ export function Applications() {
           </h2>
         </div>
         <div className="grid self-center gap-[0.7rem]">
-          <a
+          <ApplicationLink
+            application={applicationForms.mentee}
             className={cn(
               "grid min-h-[6.7rem] cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border-0 p-[1.1rem] text-left text-notte opacity-100 transition-shadow duration-200 ease-xpeer-out hover:[box-shadow:0_0.8rem_2rem_color-mix(in_srgb,var(--color-notte)_28%,transparent)] motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[5.9rem]",
               "bg-lime",
               actionPressMotion,
             )}
-            href={applicationLinks.mentee}
           >
             <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-current text-[0.72rem] font-bold">
               01
@@ -82,14 +83,14 @@ export function Applications() {
                 apply as a mentee
               </b>
             </ActionContent>
-          </a>
-          <a
+          </ApplicationLink>
+          <ApplicationLink
+            application={applicationForms.mentor}
             className={cn(
               "grid min-h-[6.7rem] cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border-0 p-[1.1rem] text-left text-notte opacity-100 transition-shadow duration-200 ease-xpeer-out hover:[box-shadow:0_0.8rem_2rem_color-mix(in_srgb,var(--color-notte)_28%,transparent)] motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[5.9rem]",
               "bg-ivory hover:bg-ivory",
               actionPressMotion,
             )}
-            href={applicationLinks.mentor}
           >
             <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-current text-[0.72rem] font-bold">
               02
@@ -102,7 +103,7 @@ export function Applications() {
                 join as a mentor
               </b>
             </ActionContent>
-          </a>
+          </ApplicationLink>
         </div>
         <p className="col-span-full mt-0 mr-0 mb-0 ml-auto max-w-[31ch] pb-[0.08em] text-right text-[clamp(1.5rem,2.5vw,2.5rem)] leading-[1.12] font-light text-balance max-[56rem]:ml-0 max-[56rem]:text-left max-[42rem]:mt-2 max-[42rem]:max-w-[24ch] max-[42rem]:text-[clamp(1.8rem,8vw,2.35rem)]">
           today's mentees become{" "}
@@ -140,32 +141,32 @@ export function Footer() {
           aria-label="Footer navigation"
         >
           <a
-            className="text-[0.85rem] font-semibold no-underline"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[0.85rem] font-semibold no-underline"
             href="#programme"
           >
             programme
           </a>
           <a
-            className="text-[0.85rem] font-semibold no-underline"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[0.85rem] font-semibold no-underline"
             href="#people"
           >
             people
           </a>
           <a
-            className="text-[0.85rem] font-semibold no-underline"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[0.85rem] font-semibold no-underline"
             href="#who-its-for"
           >
             who it's for
           </a>
           <a
-            className="text-[0.85rem] font-semibold no-underline"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[0.85rem] font-semibold no-underline"
             href="#applications"
           >
             applications
           </a>
         </nav>
         <a
-          className="inline-flex items-center [justify-self:end] gap-[0.45rem] text-[0.75rem] text-ivory-muted no-underline max-[56rem]:[justify-self:start]"
+          className="inline-flex min-h-11 items-center [justify-self:end] gap-[0.45rem] text-[0.75rem] text-ivory-muted no-underline max-[56rem]:[justify-self:start]"
           href="#top"
         >
           back to top <ArrowIcon direction="up" />

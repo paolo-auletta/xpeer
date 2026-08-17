@@ -1,9 +1,13 @@
 import { useRef } from "react";
 import communityPhoto from "../../assets/stock/xpeer-community.jpg";
+import communityPhoto640 from "../../assets/stock/xpeer-community-640.avif";
+import communityPhoto960 from "../../assets/stock/xpeer-community-960.avif";
+import communityPhoto1280 from "../../assets/stock/xpeer-community-1280.avif";
 import { usePeopleHighlight } from "../hooks/useLandingMotion";
-import { applicationLinks } from "../lib/applicationLinks";
+import { applicationForms } from "../lib/applicationLinks";
 import { cn } from "../lib/cn";
 import { ActionContent, actionPressMotion } from "./ActionContent";
+import { ApplicationLink } from "./ApplicationLink";
 
 export function People() {
   const peopleSectionRef = useRef<HTMLElement>(null);
@@ -36,12 +40,22 @@ export function People() {
         </p>
       </div>
       <figure className="relative m-0 aspect-[1.16] self-center overflow-hidden rounded-3xl after:absolute after:inset-0 after:bg-[linear-gradient(180deg,transparent_55%,color-mix(in_srgb,var(--color-notte)_64%,transparent))] max-[56rem]:aspect-[1.5] max-[42rem]:aspect-[0.92] max-[42rem]:rounded-2xl">
-        <img
-          className="h-full w-full object-cover object-center max-[42rem]:[object-position:55%_center]"
-          src={communityPhoto}
-          alt="A group of university students talking together in a lecture hall."
-          loading="lazy"
-        />
+        <picture className="block h-full w-full">
+          <source
+            type="image/avif"
+            srcSet={`${communityPhoto640} 640w, ${communityPhoto960} 960w, ${communityPhoto1280} 1280w`}
+            sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 100vw, 55vw"
+          />
+          <img
+            className="h-full w-full object-cover object-center max-[42rem]:[object-position:55%_center]"
+            src={communityPhoto}
+            width="1800"
+            height="1013"
+            sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 100vw, 55vw"
+            alt="A group of university students talking together in a lecture hall."
+            loading="lazy"
+          />
+        </picture>
         <figcaption className="absolute bottom-6 left-6 z-[1] flex flex-col text-ivory">
           <span className="text-[0.72rem] font-bold tracking-[0.1em] uppercase">
             the wider circle
@@ -89,15 +103,15 @@ export function Audience() {
               wonder, a year from now, what they missed.
             </p>
           </div>
-          <a
+          <ApplicationLink
+            application={applicationForms.mentee}
             className={cn(
-              "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
+              "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex min-h-11 items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
               actionPressMotion,
             )}
-            href={applicationLinks.mentee}
           >
             <ActionContent>apply as a mentee</ActionContent>
-          </a>
+          </ApplicationLink>
         </article>
         <article
           className={cn(
@@ -117,15 +131,15 @@ export function Audience() {
               someone else's better.
             </p>
           </div>
-          <a
+          <ApplicationLink
+            application={applicationForms.mentor}
             className={cn(
-              "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
+              "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex min-h-11 items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
               actionPressMotion,
             )}
-            href={applicationLinks.mentor}
           >
             <ActionContent>join as a mentor</ActionContent>
-          </a>
+          </ApplicationLink>
         </article>
       </div>
     </section>

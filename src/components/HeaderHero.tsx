@@ -1,14 +1,25 @@
 import logoForest from "../../assets/xpeer-logo/lockup/xpeer-lockup-forest.svg";
 import mentorConversation from "../../assets/stock/mentor-conversation.jpg";
+import mentorConversation640 from "../../assets/stock/mentor-conversation-640.avif";
+import mentorConversation960 from "../../assets/stock/mentor-conversation-960.avif";
+import mentorConversation1280 from "../../assets/stock/mentor-conversation-1280.avif";
 import { cn } from "../lib/cn";
-import { applicationLinks } from "../lib/applicationLinks";
+import { applicationForms } from "../lib/applicationLinks";
+import { ApplicationLink } from "./ApplicationLink";
 import { ActionContent, actionPressMotion } from "./ActionContent";
 
 export function Header() {
   return (
-    <header className="fixed top-[0.85rem] left-1/2 z-50 grid h-16 w-[min(calc(100%_-_2rem),78rem)] [transform:translateX(-50%)] grid-cols-[1fr_auto_1fr] items-center rounded-[999px] border border-[color-mix(in_srgb,var(--color-forest)_16%,transparent)] bg-[color-mix(in_srgb,var(--color-ivory)_96%,transparent)] py-0 pr-[0.55rem] pl-[1.15rem] [box-shadow:0_0.6rem_2rem_color-mix(in_srgb,var(--color-notte)_8%,transparent)] max-[56rem]:grid-cols-[1fr_auto] max-[42rem]:top-[0.7rem] max-[42rem]:h-[3.45rem] max-[42rem]:w-[calc(100%_-_2rem)] max-[42rem]:pl-[0.85rem]">
+    <>
       <a
-        className="[justify-self:start]"
+        className="sr-only fixed top-3 left-3 z-[60] rounded-full bg-lime px-4 py-3 font-bold text-notte no-underline focus:not-sr-only focus:inline-flex focus:min-h-11 focus:min-w-11 focus:items-center"
+        href="#main-content"
+      >
+        skip to content
+      </a>
+      <header className="fixed top-[0.85rem] left-1/2 z-50 grid h-16 w-[min(calc(100%_-_2rem),78rem)] [transform:translateX(-50%)] grid-cols-[1fr_auto_1fr] items-center rounded-[999px] border border-[color-mix(in_srgb,var(--color-forest)_16%,transparent)] bg-[color-mix(in_srgb,var(--color-ivory)_96%,transparent)] py-0 pr-[0.55rem] pl-[1.15rem] [box-shadow:0_0.6rem_2rem_color-mix(in_srgb,var(--color-notte)_8%,transparent)] max-[56rem]:grid-cols-[1fr_auto] max-[42rem]:top-[0.7rem] max-[42rem]:h-[3.45rem] max-[42rem]:w-[calc(100%_-_2rem)] max-[42rem]:pl-[0.85rem]">
+      <a
+        className="inline-flex min-h-11 min-w-11 items-center [justify-self:start]"
         href="#top"
         aria-label="X-Peer, back to top"
       >
@@ -24,19 +35,19 @@ export function Header() {
         aria-label="Primary navigation"
       >
         <a
-          className="relative text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[-0.25rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
+          className="relative inline-flex min-h-11 items-center text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[0.45rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
           href="#programme"
         >
           programme
         </a>
         <a
-          className="relative text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[-0.25rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
+          className="relative inline-flex min-h-11 items-center text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[0.45rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
           href="#people"
         >
           the people
         </a>
         <a
-          className="relative text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[-0.25rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
+          className="relative inline-flex min-h-11 items-center text-[0.85rem] font-semibold no-underline after:absolute after:bottom-[0.45rem] after:left-0 after:h-px after:w-full after:origin-right after:[transform:scaleX(0)] after:bg-forest after:[transition-property:transform] after:duration-200 after:ease-[ease] hover:after:origin-left hover:after:[transform:scaleX(1)] motion-reduce:after:duration-[0.01ms]"
           href="#who-its-for"
         >
           who it's for
@@ -45,26 +56,37 @@ export function Header() {
 
       <a
         className={cn(
-          "inline-flex min-h-[2.9rem] items-center [justify-self:end] gap-[0.8rem] rounded-[999px] bg-forest px-4 py-[0.65rem] text-[0.84rem] font-bold text-ivory no-underline transition-[background,color] [transition-duration:200ms,200ms] [transition-timing-function:ease,ease] hover:bg-lime hover:text-notte motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[2.55rem] max-[42rem]:gap-[0.45rem] max-[42rem]:px-[0.75rem] max-[42rem]:py-[0.6rem] max-[42rem]:text-[0.72rem]",
+          "inline-flex min-h-[2.9rem] items-center [justify-self:end] gap-[0.8rem] rounded-[999px] bg-forest px-4 py-[0.65rem] text-[0.84rem] font-bold text-ivory no-underline transition-[background,color] [transition-duration:200ms,200ms] [transition-timing-function:ease,ease] hover:bg-lime hover:text-notte motion-reduce:duration-[0.01ms] max-[42rem]:min-h-11 max-[42rem]:gap-[0.45rem] max-[42rem]:px-[0.75rem] max-[42rem]:py-[0.6rem] max-[42rem]:text-[0.72rem]",
           actionPressMotion,
         )}
         href="#applications"
       >
         <ActionContent>apply now</ActionContent>
       </a>
-    </header>
+      </header>
+    </>
   );
 }
 
 function HeroVisual() {
   return (
     <figure className="relative m-0 aspect-[0.84] min-h-[34rem] max-h-[47rem] self-center overflow-hidden rounded-[1.75rem] max-[68rem]:min-h-0 max-[56rem]:aspect-[1.18] max-[56rem]:min-h-0 max-[42rem]:h-svh max-[42rem]:min-h-svh max-[42rem]:max-h-none max-[42rem]:w-full max-[42rem]:rounded-none max-[42rem]:[aspect-ratio:auto] max-[42rem]:[grid-area:1/1]">
-      <img
-        className="h-full w-full animate-hero-photo-in object-cover [object-position:57%_center] motion-reduce:animate-hero-photo-fade"
-        src={mentorConversation}
-        alt="University students talking together between lectures."
-        fetchPriority="high"
-      />
+      <picture className="block h-full w-full">
+        <source
+          type="image/avif"
+          srcSet={`${mentorConversation640} 640w, ${mentorConversation960} 960w, ${mentorConversation1280} 1280w`}
+          sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 60vw, 50vw"
+        />
+        <img
+          className="h-full w-full animate-hero-photo-in object-cover [object-position:57%_center] motion-reduce:animate-hero-photo-fade"
+          src={mentorConversation}
+          width="1800"
+          height="1013"
+          sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 60vw, 50vw"
+          alt="University students talking together between lectures."
+          fetchPriority="high"
+        />
+      </picture>
       <div
         className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,color-mix(in_srgb,var(--color-notte)_76%,transparent))] max-[42rem]:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-notte)_7%,transparent)_0%,color-mix(in_srgb,var(--color-notte)_24%,transparent)_30%,color-mix(in_srgb,var(--color-notte)_83%,transparent)_55%,color-mix(in_srgb,var(--color-notte)_96%,transparent)_100%)]"
         aria-hidden="true"
@@ -125,35 +147,35 @@ export function Hero() {
             xpeer is a peer mentorship community at Bocconi. mentees and mentors
             are one year apart, with a circle of people worth knowing.
           </p>
-          <div
+          <nav
             className="mt-8 grid max-w-[35rem] grid-cols-2 gap-[0.6rem] max-[42rem]:mt-[0.9rem] max-[42rem]:grid-cols-1 max-[42rem]:gap-[0.45rem]"
             aria-label="Application paths"
           >
-            <a
+            <ApplicationLink
+              application={applicationForms.mentee}
               className={cn(
                 "inline-flex min-h-[3.75rem] items-center justify-between gap-4 rounded-[0.9rem] py-[0.55rem] pr-[0.6rem] pl-4 text-[0.95rem] font-bold no-underline max-[42rem]:min-h-[2.9rem] max-[42rem]:w-full max-[42rem]:py-[0.55rem]",
                 "bg-lime text-notte hover:text-notte",
                 actionPressMotion,
               )}
-              href={applicationLinks.mentee}
             >
               <ActionContent arrowClassName="box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory">
                 apply as a mentee
               </ActionContent>
-            </a>
-            <a
+            </ApplicationLink>
+            <ApplicationLink
+              application={applicationForms.mentor}
               className={cn(
                 "inline-flex min-h-[3.75rem] items-center justify-between gap-4 rounded-[0.9rem] py-[0.55rem] pr-[0.6rem] pl-4 text-[0.95rem] font-bold no-underline max-[42rem]:min-h-[2.9rem] max-[42rem]:w-full max-[42rem]:py-[0.55rem]",
                 "bg-ivory text-notte [box-shadow:inset_0_0_0_1px_color-mix(in_srgb,var(--color-forest)_48%,transparent)] hover:text-notte hover:[box-shadow:inset_0_0_0_1px_color-mix(in_srgb,var(--color-forest)_48%,transparent)] max-[42rem]:[box-shadow:none] max-[42rem]:hover:[box-shadow:none]",
                 actionPressMotion,
               )}
-              href={applicationLinks.mentor}
             >
               <ActionContent arrowClassName="box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory">
                 join as a mentor
               </ActionContent>
-            </a>
-          </div>
+            </ApplicationLink>
+          </nav>
         </div>
 
         <HeroVisual />

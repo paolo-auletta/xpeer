@@ -7,7 +7,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="bg-ivory">
+      <main className="bg-ivory" id="main-content" tabIndex={-1}>
         <Hero />
         <Problem />
         <Programme />
