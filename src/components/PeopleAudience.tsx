@@ -1,14 +1,17 @@
+import { useRef } from "react";
 import communityPhoto from "../../assets/stock/xpeer-community.jpg";
-import { useScrollHighlight } from "../hooks/useLandingMotion";
+import { usePeopleHighlight } from "../hooks/useLandingMotion";
 import { applicationLinks } from "../lib/applicationLinks";
 import { cn } from "../lib/cn";
-import { ArrowIcon } from "./ArrowIcon";
+import { ActionContent, actionPressMotion } from "./ActionContent";
 
 export function People() {
-  const peopleHighlightRef = useScrollHighlight();
+  const peopleSectionRef = useRef<HTMLElement>(null);
+  const peopleHighlightRef = usePeopleHighlight(peopleSectionRef);
 
   return (
     <section
+      ref={peopleSectionRef}
       className="grid grid-cols-[minmax(0,0.78fr)_minmax(32rem,1.22fr)] gap-[clamp(3rem,7vw,8rem)] bg-notte px-[var(--page-pad)] py-[clamp(6.5rem,10vw,10rem)] text-ivory max-[68rem]:grid-cols-[minmax(0,0.82fr)_minmax(27rem,1.18fr)] max-[56rem]:grid-cols-1 max-[42rem]:gap-14 max-[42rem]:pt-[6.5rem] max-[42rem]:pb-20"
       id="people"
     >
@@ -89,14 +92,11 @@ export function Audience() {
           <a
             className={cn(
               "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
-              "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+              actionPressMotion,
             )}
             href={applicationLinks.mentee}
           >
-            <span className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
-              apply as a mentee
-            </span>
-            <ArrowIcon className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]" />
+            <ActionContent>apply as a mentee</ActionContent>
           </a>
         </article>
         <article
@@ -120,14 +120,11 @@ export function Audience() {
           <a
             className={cn(
               "relative mt-[clamp(3.5rem,6vw,5.5rem)] flex items-center justify-between border-t border-current pt-4 text-[0.92rem] font-bold no-underline before:absolute before:top-[-1px] before:left-0 before:h-px before:w-full before:origin-left before:[transform:scaleX(0)] before:bg-current before:[transition-property:transform] before:duration-200 before:ease-xpeer-out fine-pointer:hover:before:[transform:scaleX(1)] motion-reduce:before:duration-[0.01ms] max-[42rem]:mt-10",
-              "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+              actionPressMotion,
             )}
             href={applicationLinks.mentor}
           >
-            <span className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
-              join as a mentor
-            </span>
-            <ArrowIcon className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]" />
+            <ActionContent>join as a mentor</ActionContent>
           </a>
         </article>
       </div>

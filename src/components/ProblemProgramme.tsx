@@ -6,7 +6,6 @@ import { cn } from "../lib/cn";
 
 const pathways = [
   {
-    number: "01",
     title: "direction",
     description:
       "which paths genuinely fit you, including the ones with no map",
@@ -14,14 +13,12 @@ const pathways = [
     alt: "A guided line moving forward.",
   },
   {
-    number: "02",
     title: "your studies",
     description: "how to approach Bocconi, and where your effort is best spent",
     image: studiesIcon,
     alt: "An open book with a highlighted point.",
   },
   {
-    number: "03",
     title: "getting in",
     description:
       "which associations, spring weeks and internships to aim for, and how",
@@ -29,7 +26,6 @@ const pathways = [
     alt: "A guided path passing through an arch.",
   },
   {
-    number: "04",
     title: "life in Milan",
     description:
       "settling in, finding a rhythm, feeling at home in a city that isn't yours yet",
@@ -93,19 +89,16 @@ export function Programme() {
             className={cn(
               "flex min-h-[27rem] flex-col py-6 pr-[clamp(1rem,4vw,4rem)] pb-[clamp(3rem,5vw,5rem)] pl-0 max-[42rem]:min-h-0 max-[42rem]:px-0 max-[42rem]:py-4 max-[42rem]:pb-10",
               index % 2 === 1 &&
-                "border-l pl-[clamp(1.5rem,4vw,4rem)] pr-0! [border-left-color:color-mix(in_srgb,var(--color-forest)_22%,transparent)] max-[42rem]:border-l-0 max-[42rem]:[border-left-color:currentColor] max-[42rem]:px-0",
+                "border-l pl-[clamp(1.5rem,4vw,4rem)] pr-0! [border-left-color:color-mix(in_srgb,var(--color-forest)_28%,transparent)] max-[42rem]:border-l-0 max-[42rem]:[border-left-color:currentColor] max-[42rem]:px-0",
               index >= 2 &&
-                "border-t [border-top-color:color-mix(in_srgb,var(--color-forest)_32%,transparent)]",
+                "border-t [border-top-color:color-mix(in_srgb,var(--color-forest)_38%,transparent)]",
               index === 1 &&
-                "max-[42rem]:border-t max-[42rem]:[border-top-color:color-mix(in_srgb,var(--color-forest)_32%,transparent)]",
+                "max-[42rem]:border-t max-[42rem]:[border-top-color:color-mix(in_srgb,var(--color-forest)_38%,transparent)]",
             )}
             key={pathway.title}
           >
-            <div className="flex items-start justify-between max-[42rem]:grid max-[42rem]:grid-cols-[minmax(0,1fr)_auto] max-[42rem]:gap-4">
-              <span className="text-[0.8rem] font-bold tracking-[0.08em] text-forest-muted">
-                {pathway.number}
-              </span>
-              <div className="relative h-[clamp(6.5rem,10vw,8rem)] w-[clamp(6.5rem,10vw,8rem)] overflow-hidden rounded-[1.15rem] max-[42rem]:h-[5.5rem] max-[42rem]:w-[5.5rem]">
+            <div className="flex flex-col items-start">
+              <div className="relative mt-[clamp(1.3rem,2vw,1.8rem)] h-[clamp(6.75rem,10vw,8.1rem)] w-[clamp(6.75rem,10vw,8.1rem)] overflow-hidden rounded-[1.15rem] max-[42rem]:mt-4 max-[42rem]:h-[5.5rem] max-[42rem]:w-[5.5rem]">
                 <img
                   className="h-full w-full object-contain"
                   src={pathway.image}
@@ -115,10 +108,10 @@ export function Programme() {
               </div>
             </div>
             <div className="mt-auto pt-16 max-[42rem]:mt-0 max-[42rem]:pt-6">
-              <h3 className="m-0 pb-[0.07em] text-[clamp(2.35rem,4.5vw,4.6rem)] leading-[1.02] font-bold tracking-[-0.04em] text-accent-text max-[42rem]:text-[clamp(2.4rem,10.5vw,3rem)]">
+              <h3 className="m-0 pb-[0.07em] text-[clamp(2.35rem,4.4vw,4.45rem)] leading-[1.02] font-bold tracking-[-0.04em] text-accent-text max-[42rem]:text-[clamp(2.4rem,10.5vw,3rem)]">
                 {pathway.title}
               </h3>
-              <p className="mt-[1.2rem] mb-0 max-w-[28rem] text-[clamp(1.08rem,1.5vw,1.3rem)] leading-[1.42] max-[42rem]:mt-[0.7rem] max-[42rem]:text-base max-[42rem]:leading-[1.45]">
+              <p className="mt-[1rem] mb-0 max-w-[28rem] text-[clamp(1.08rem,1.5vw,1.3rem)] leading-[1.42] text-forest-muted max-[42rem]:mt-[0.7rem] max-[42rem]:text-base max-[42rem]:leading-[1.45]">
                 {pathway.description}
               </p>
             </div>

@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 
-export function useScrollHighlight(): RefObject<HTMLElement | null> {
+export function usePeopleHighlight(
+  sectionRef: RefObject<HTMLElement | null>,
+): RefObject<HTMLElement | null> {
   const highlightRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const element = highlightRef.current;
 
-    if (!element) {
+    const section = sectionRef.current;
+
+    if (!element || !section) {
       return;
     }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const section = element.closest<HTMLElement>("#people");
     let frame = 0;
 
     const updateHighlight = () => {
@@ -23,7 +26,7 @@ export function useScrollHighlight(): RefObject<HTMLElement | null> {
       }
 
       const { top, height } = element.getBoundingClientRect();
-      const sectionBottom = section?.getBoundingClientRect().bottom ?? top + height;
+      const sectionBottom = section.getBoundingClientRect().bottom;
       const viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
       const scrollY = window.scrollY;
@@ -60,32 +63,44 @@ export function useScrollHighlight(): RefObject<HTMLElement | null> {
       reducedMotion.removeEventListener("change", onMotionPreferenceChange);
       window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [sectionRef]);
 
   return highlightRef;
 }
 
-export function useRevealOnView(): [RefObject<HTMLElement | null>, boolean] {
+export type RevealState = "pending" | "revealed" | "static";
+
+function getInitialRevealState(): RevealState {
+  if (
+    typeof window === "undefined" ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    !("IntersectionObserver" in window)
+  ) {
+    return "static";
+  }
+
+  return "pending";
+}
+
+export function useRevealOnView(): [RefObject<HTMLElement | null>, RevealState] {
   const revealRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [state, setState] = useState<RevealState>(getInitialRevealState);
 
   useEffect(() => {
+    if (state !== "pending") {
+      return;
+    }
+
     const element = revealRef.current;
 
     if (!element) {
       return;
     }
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
-      return;
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          setIsVisible(true);
+          setState("revealed");
           observer.disconnect();
         }
       },
@@ -98,7 +113,7 @@ export function useRevealOnView(): [RefObject<HTMLElement | null>, boolean] {
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, []);
+  }, [state]);
 
-  return [revealRef, isVisible];
+  return [revealRef, state];
 }

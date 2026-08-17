@@ -1,11 +1,44 @@
 import logoIvory from "../../assets/xpeer-logo/lockup/xpeer-lockup-ivory.svg";
-import { useRevealOnView } from "../hooks/useLandingMotion";
+import { type RevealState, useRevealOnView } from "../hooks/useLandingMotion";
 import { applicationLinks } from "../lib/applicationLinks";
 import { cn } from "../lib/cn";
+import { ActionContent, actionPressMotion } from "./ActionContent";
 import { ArrowIcon } from "./ArrowIcon";
 
+const applicationRingSizes = [
+  "h-full w-full",
+  "h-[70%] w-[70%] [animation-delay:80ms]",
+  "h-[38%] w-[38%] bg-[color-mix(in_srgb,var(--color-lime)_8%,transparent)] [animation-delay:160ms]",
+] as const;
+
+function ApplicationRings({ state }: { state: RevealState }) {
+  const isPending = state === "pending";
+
+  return (
+    <div
+      className="absolute right-[-15rem] bottom-[-24rem] h-[58rem] w-[58rem] max-[42rem]:right-[-15rem] max-[42rem]:bottom-[-10rem] max-[42rem]:h-[32rem] max-[42rem]:w-[32rem]"
+      aria-hidden="true"
+    >
+      {applicationRingSizes.map((size) => (
+        <span
+          className={cn(
+            "absolute top-1/2 left-1/2 rounded-[50%] border border-[color-mix(in_srgb,var(--color-lime)_40%,transparent)]",
+            isPending
+              ? "opacity-0 [transform:translate(-50%,-50%)_scale(0.9)] motion-reduce:opacity-100 motion-reduce:[transform:translate(-50%,-50%)_scale(1)]"
+              : "opacity-100 [transform:translate(-50%,-50%)_scale(1)]",
+            state === "revealed" &&
+              "animate-application-ring-grow motion-reduce:animate-none",
+            size,
+          )}
+          key={size}
+        />
+      ))}
+    </div>
+  );
+}
+
 export function Applications() {
-  const [applicationsRef, applicationsVisible] = useRevealOnView();
+  const [applicationsRef, applicationsRevealState] = useRevealOnView();
 
   return (
     <section
@@ -13,35 +46,7 @@ export function Applications() {
       className="relative min-h-0 overflow-hidden bg-forest px-[var(--page-pad)] py-[clamp(6rem,9vw,8rem)] text-ivory max-[42rem]:pt-[5.5rem] max-[42rem]:pb-20"
       id="applications"
     >
-      <div
-        className="absolute right-[-15rem] bottom-[-24rem] h-[58rem] w-[58rem] max-[42rem]:right-[-15rem] max-[42rem]:bottom-[-10rem] max-[42rem]:h-[32rem] max-[42rem]:w-[32rem]"
-        aria-hidden="true"
-      >
-        <span
-          className={cn(
-            "absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] rounded-[50%] border border-[color-mix(in_srgb,var(--color-lime)_40%,transparent)]",
-            applicationsVisible &&
-              "animate-application-ring-grow motion-reduce:animate-none",
-            "h-full w-full",
-          )}
-        />
-        <span
-          className={cn(
-            "absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] rounded-[50%] border border-[color-mix(in_srgb,var(--color-lime)_40%,transparent)]",
-            applicationsVisible &&
-              "animate-application-ring-grow motion-reduce:animate-none",
-            "h-[70%] w-[70%] [animation-delay:80ms]",
-          )}
-        />
-        <span
-          className={cn(
-            "absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] rounded-[50%] border border-[color-mix(in_srgb,var(--color-lime)_40%,transparent)]",
-            applicationsVisible &&
-              "animate-application-ring-grow motion-reduce:animate-none",
-            "h-[38%] w-[38%] bg-[color-mix(in_srgb,var(--color-lime)_8%,transparent)] [animation-delay:160ms]",
-          )}
-        />
-      </div>
+      <ApplicationRings state={applicationsRevealState} />
       <div className="relative z-[2] mx-auto grid max-w-[91rem] grid-cols-[minmax(0,1fr)_minmax(23rem,0.72fr)] gap-[clamp(3rem,7vw,8rem)] max-[56rem]:grid-cols-1 max-[42rem]:gap-10">
         <div>
           <h2 className="m-0 pb-[0.08em] font-bold tracking-[-0.04em] text-balance max-w-[10ch] text-[clamp(4rem,7.5vw,7.2rem)] leading-none max-[42rem]:max-w-[9ch] max-[42rem]:text-[clamp(3.6rem,16vw,4.7rem)]">
@@ -53,41 +58,41 @@ export function Applications() {
             className={cn(
               "grid min-h-[6.7rem] cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border-0 p-[1.1rem] text-left text-notte opacity-100 transition-shadow duration-200 ease-xpeer-out hover:[box-shadow:0_0.8rem_2rem_color-mix(in_srgb,var(--color-notte)_28%,transparent)] motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[5.9rem]",
               "bg-lime",
-              "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+              actionPressMotion,
             )}
             href={applicationLinks.mentee}
           >
             <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-current text-[0.72rem] font-bold">
               01
             </span>
-            <span className="flex flex-col gap-[0.3rem] [transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
+            <ActionContent
+              labelClassName="flex flex-col gap-[0.3rem]"
+              arrowContainerClassName="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-forest bg-forest text-[0.9rem] font-bold text-ivory"
+            >
               <b className="text-[clamp(1.15rem,1.8vw,1.55rem)]">
                 apply as a mentee
               </b>
-            </span>
-            <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-forest bg-forest text-[0.9rem] font-bold text-ivory">
-              <ArrowIcon className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]" />
-            </span>
+            </ActionContent>
           </a>
           <a
             className={cn(
               "grid min-h-[6.7rem] cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 rounded-2xl border-0 p-[1.1rem] text-left text-notte opacity-100 transition-shadow duration-200 ease-xpeer-out hover:[box-shadow:0_0.8rem_2rem_color-mix(in_srgb,var(--color-notte)_28%,transparent)] motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[5.9rem]",
               "bg-ivory hover:bg-ivory",
-              "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+              actionPressMotion,
             )}
             href={applicationLinks.mentor}
           >
             <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-current text-[0.72rem] font-bold">
               02
             </span>
-            <span className="flex flex-col gap-[0.3rem] [transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
+            <ActionContent
+              labelClassName="flex flex-col gap-[0.3rem]"
+              arrowContainerClassName="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-forest bg-forest text-[0.9rem] font-bold text-ivory"
+            >
               <b className="text-[clamp(1.15rem,1.8vw,1.55rem)]">
                 join as a mentor
               </b>
-            </span>
-            <span className="flex h-[2.2rem] w-[2.2rem] flex-none items-center justify-center rounded-[50%] border border-forest bg-forest text-[0.9rem] font-bold text-ivory">
-              <ArrowIcon className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]" />
-            </span>
+            </ActionContent>
           </a>
         </div>
         <p className="col-span-full mt-0 mr-0 mb-0 ml-auto max-w-[31ch] pb-[0.08em] text-right text-[clamp(1.5rem,2.5vw,2.5rem)] leading-[1.12] font-light text-balance max-[56rem]:ml-0 max-[56rem]:text-left max-[42rem]:mt-2 max-[42rem]:max-w-[24ch] max-[42rem]:text-[clamp(1.8rem,8vw,2.35rem)]">

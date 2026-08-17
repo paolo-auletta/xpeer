@@ -78,7 +78,7 @@
   --animate-hero-photo-fade: hero-photo-fade 900ms var(--ease-xpeer-out) both;
   --animate-handoff-flow: handoff-flow 3.2s linear infinite;
   --animate-application-ring-grow: application-ring-grow 1100ms var(--ease-xpeer-out) both;
-  --animate-hero-underline: hero-underline-reveal 700ms var(--ease-xpeer-out) 500ms both;
+  --animate-hero-underline: hero-underline-reveal 620ms var(--ease-xpeer-out) 420ms both;
 
   @keyframes hero-photo-in {
     from {
@@ -122,13 +122,11 @@
 
   @keyframes hero-underline-reveal {
     from {
-      opacity: 0.45;
-      transform: scaleX(0);
+      clip-path: inset(0 100% 0 0);
     }
 
     to {
-      opacity: 1;
-      transform: scaleX(1);
+      clip-path: inset(0 0 0 0);
     }
   }
 }
@@ -142,15 +140,14 @@
 .hero-underline::after {
   position: absolute;
   right: 0;
-  bottom: -0.08em;
+  bottom: -0.13em;
   left: 0;
-  height: 0.1em;
-  min-height: 0.14rem;
-  border-radius: 999px;
+  height: 0.13em;
+  min-height: 0.2rem;
+  border-radius: 0;
   background: currentColor;
   content: "";
-  transform: scaleX(0);
-  transform-origin: left center;
+  clip-path: inset(0 100% 0 0);
   animation: var(--animate-hero-underline);
 }
 
@@ -175,8 +172,7 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-underline::after {
     animation: none;
-    opacity: 1;
-    transform: scaleX(1);
+    clip-path: none;
   }
 
   .people-highlight {

@@ -2,7 +2,7 @@ import logoForest from "../../assets/xpeer-logo/lockup/xpeer-lockup-forest.svg";
 import mentorConversation from "../../assets/stock/mentor-conversation.jpg";
 import { cn } from "../lib/cn";
 import { applicationLinks } from "../lib/applicationLinks";
-import { ArrowIcon } from "./ArrowIcon";
+import { ActionContent, actionPressMotion } from "./ActionContent";
 
 export function Header() {
   return (
@@ -45,15 +45,12 @@ export function Header() {
 
       <a
         className={cn(
-          "inline-flex min-h-[2.9rem] items-center [justify-self:end] gap-[0.8rem] rounded-[999px] bg-forest px-4 py-[0.65rem] text-[0.84rem] font-bold text-ivory no-underline transition-[background,color] [transition-duration:200ms,200ms] [transition-timing-function:ease,ease] hover:bg-lime hover:text-notte motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[2.55rem] max-[42rem]:gap-[0.45rem] max-[42rem]:px-[0.75rem] max-[42rem]:py-[0.6rem] max-[42rem]:text-[0.67rem]",
-          "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+          "inline-flex min-h-[2.9rem] items-center [justify-self:end] gap-[0.8rem] rounded-[999px] bg-forest px-4 py-[0.65rem] text-[0.84rem] font-bold text-ivory no-underline transition-[background,color] [transition-duration:200ms,200ms] [transition-timing-function:ease,ease] hover:bg-lime hover:text-notte motion-reduce:duration-[0.01ms] max-[42rem]:min-h-[2.55rem] max-[42rem]:gap-[0.45rem] max-[42rem]:px-[0.75rem] max-[42rem]:py-[0.6rem] max-[42rem]:text-[0.72rem]",
+          actionPressMotion,
         )}
         href="#applications"
       >
-        <span className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
-          apply now
-        </span>
-        <ArrowIcon className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]" />
+        <ActionContent>apply now</ActionContent>
       </a>
     </header>
   );
@@ -136,37 +133,25 @@ export function Hero() {
               className={cn(
                 "inline-flex min-h-[3.75rem] items-center justify-between gap-4 rounded-[0.9rem] py-[0.55rem] pr-[0.6rem] pl-4 text-[0.95rem] font-bold no-underline max-[42rem]:min-h-[2.9rem] max-[42rem]:w-full max-[42rem]:py-[0.55rem]",
                 "bg-lime text-notte hover:text-notte",
-                "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+                actionPressMotion,
               )}
               href={applicationLinks.mentee}
             >
-              <span className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
+              <ActionContent arrowClassName="box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory">
                 apply as a mentee
-              </span>
-              <ArrowIcon
-                className={cn(
-                  "box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory",
-                  "[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]",
-                )}
-              />
+              </ActionContent>
             </a>
             <a
               className={cn(
                 "inline-flex min-h-[3.75rem] items-center justify-between gap-4 rounded-[0.9rem] py-[0.55rem] pr-[0.6rem] pl-4 text-[0.95rem] font-bold no-underline max-[42rem]:min-h-[2.9rem] max-[42rem]:w-full max-[42rem]:py-[0.55rem]",
                 "bg-ivory text-notte [box-shadow:inset_0_0_0_1px_color-mix(in_srgb,var(--color-forest)_48%,transparent)] hover:text-notte hover:[box-shadow:inset_0_0_0_1px_color-mix(in_srgb,var(--color-forest)_48%,transparent)] max-[42rem]:[box-shadow:none] max-[42rem]:hover:[box-shadow:none]",
-                "group transition-[transform] duration-[140ms] ease-xpeer-out active:[transform:scale(0.97)] motion-reduce:duration-[80ms] motion-reduce:active:[transform:scale(0.985)]",
+                actionPressMotion,
               )}
               href={applicationLinks.mentor}
             >
-              <span className="[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:translateX(0.22rem)] motion-reduce:duration-[0.01ms]">
+              <ActionContent arrowClassName="box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory">
                 join as a mentor
-              </span>
-              <ArrowIcon
-                className={cn(
-                  "box-content rounded-[50%] bg-forest p-[0.55rem] text-ivory",
-                  "[transition-property:transform] duration-200 ease-xpeer-out fine-pointer:group-hover:[transform:rotate(-45deg)_scale(0.94)] motion-reduce:duration-[0.01ms]",
-                )}
-              />
+              </ActionContent>
             </a>
           </div>
         </div>
