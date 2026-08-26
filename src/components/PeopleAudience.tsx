@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import arinaPhoto from "../../assets/foto/Arina, BIEM.webp";
 import filippoPhoto from "../../assets/foto/Filippo, BIEM.webp";
 import flavioPhoto from "../../assets/foto/Flavio, BIEM.webp";
@@ -81,14 +87,84 @@ const communityMembers = [
   },
 ] as const;
 
+const carouselAutoplayDelay = 5000;
+const carouselManualResumeDelay = 7000;
+const carouselControlClassName =
+  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-ivory)_36%,transparent)] bg-transparent text-ivory transition-[border-color,color,transform] duration-[140ms] ease-xpeer-out enabled:cursor-pointer enabled:active:[transform:scale(0.96)] disabled:cursor-not-allowed disabled:opacity-35 motion-reduce:duration-[80ms] fine-pointer:enabled:hover:border-lime fine-pointer:enabled:hover:text-lime";
+const carouselSlides = [0, 1, 2].flatMap((copyIndex) =>
+  communityMembers.map((member, logicalIndex) => ({
+    member,
+    logicalIndex,
+    isClone: copyIndex !== 1,
+    key: `${copyIndex}-${member.name}`,
+  })),
+);
+
+function getCarouselSlideOffset(track: HTMLDivElement, index: number) {
+  const slide = track.children.item(index);
+  if (!(slide instanceof HTMLElement)) return index * track.clientWidth;
+
+  return (
+    slide.getBoundingClientRect().left -
+    track.getBoundingClientRect().left +
+    track.scrollLeft
+  );
+}
+
+function getNearestCarouselSlide(track: HTMLDivElement) {
+  let nearestIndex = 0;
+  let nearestDistance = Number.POSITIVE_INFINITY;
+
+  for (let index = 0; index < track.children.length; index += 1) {
+    const distance = Math.abs(
+      track.scrollLeft - getCarouselSlideOffset(track, index),
+    );
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = index;
+    }
+  }
+
+  return nearestIndex;
+}
+
+function normalizeCarouselPosition(track: HTMLDivElement) {
+  if (track.clientWidth === 0) return 0;
+
+  const physicalIndex = getNearestCarouselSlide(track);
+  let indexShift = 0;
+
+  if (physicalIndex < communityMembers.length) {
+    indexShift = communityMembers.length;
+  } else if (physicalIndex >= communityMembers.length * 2) {
+    indexShift = -communityMembers.length;
+  }
+
+  if (indexShift !== 0) {
+    track.scrollLeft +=
+      getCarouselSlideOffset(track, physicalIndex + indexShift) -
+      getCarouselSlideOffset(track, physicalIndex);
+  }
+
+  return indexShift;
+}
+
 function PeopleSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
   const targetIndexRef = useRef(0);
+  const targetPhysicalIndexRef = useRef<number>(communityMembers.length);
   const animationFrameRef = useRef<number | null>(null);
   const isAnimatingRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [canAutoplay, setCanAutoplay] = useState(false);
+  const [manualPauseUntil, setManualPauseUntil] = useState(0);
 
-  const cancelSlideAnimation = (syncToPosition = true) => {
+  const pauseAutoplayAfterInteraction = useCallback(() => {
+    setManualPauseUntil(Date.now() + carouselManualResumeDelay);
+  }, []);
+
+  const cancelSlideAnimation = useCallback((syncToPosition = true) => {
     const track = trackRef.current;
 
     if (animationFrameRef.current !== null) {
@@ -102,19 +178,18 @@ function PeopleSlider() {
 
     track.style.scrollSnapType = "";
 
+    const indexShift = normalizeCarouselPosition(track);
+    targetPhysicalIndexRef.current += indexShift;
+
     if (!syncToPosition || track.clientWidth === 0) return;
 
-    const index = Math.max(
-      0,
-      Math.min(
-        Math.round(track.scrollLeft / track.clientWidth),
-        communityMembers.length - 1,
-      ),
-    );
+    const physicalIndex = getNearestCarouselSlide(track);
+    const index = physicalIndex % communityMembers.length;
 
+    targetPhysicalIndexRef.current = physicalIndex;
     targetIndexRef.current = index;
     setActiveIndex(index);
-  };
+  }, []);
 
   useEffect(
     () => () => {
@@ -125,19 +200,63 @@ function PeopleSlider() {
     [],
   );
 
-  const animateToSlide = (index: number) => {
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const alignToActiveSlide = () => {
+      if (isAnimatingRef.current || track.clientWidth === 0) return;
+      track.scrollLeft = getCarouselSlideOffset(
+        track,
+        targetPhysicalIndexRef.current,
+      );
+    };
+
+    alignToActiveSlide();
+    const resizeObserver = new ResizeObserver(alignToActiveSlide);
+    resizeObserver.observe(track);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  const animateBy = useCallback((indexDelta: number) => {
     const track = trackRef.current;
     if (!track || track.clientWidth === 0) return;
 
-    const nextIndex = Math.max(0, Math.min(index, communityMembers.length - 1));
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    isAnimatingRef.current = false;
+    track.style.scrollSnapType = "none";
+    const indexShift = normalizeCarouselPosition(track);
+    targetPhysicalIndexRef.current += indexShift;
+
+    let destinationPhysicalIndex =
+      targetPhysicalIndexRef.current + indexDelta;
+
+    while (destinationPhysicalIndex < communityMembers.length - 1) {
+      destinationPhysicalIndex += communityMembers.length;
+    }
+
+    while (destinationPhysicalIndex > communityMembers.length * 2) {
+      destinationPhysicalIndex -= communityMembers.length;
+    }
+
+    const nextIndex =
+      ((destinationPhysicalIndex % communityMembers.length) +
+        communityMembers.length) %
+      communityMembers.length;
+    const destination = getCarouselSlideOffset(
+      track,
+      destinationPhysicalIndex,
+    );
+
+    targetPhysicalIndexRef.current = destinationPhysicalIndex;
     targetIndexRef.current = nextIndex;
     setActiveIndex(nextIndex);
 
-    if (animationFrameRef.current !== null) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
-
-    const destination = nextIndex * track.clientWidth;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -145,6 +264,8 @@ function PeopleSlider() {
     if (reduceMotion) {
       isAnimatingRef.current = false;
       track.scrollLeft = destination;
+      targetPhysicalIndexRef.current += normalizeCarouselPosition(track);
+      track.style.scrollSnapType = "";
       return;
     }
 
@@ -154,12 +275,21 @@ function PeopleSlider() {
     if (Math.abs(distance) < 1) {
       isAnimatingRef.current = false;
       track.scrollLeft = destination;
+      targetPhysicalIndexRef.current += normalizeCarouselPosition(track);
+      track.style.scrollSnapType = "";
       return;
     }
 
     const duration = Math.min(
       520,
-      280 + (Math.abs(distance) / track.clientWidth) * 45,
+      280 +
+        (Math.abs(distance) /
+          Math.max(
+            1,
+            getCarouselSlideOffset(track, 2) -
+              getCarouselSlideOffset(track, 1),
+          )) *
+          45,
     );
     const startedAt = performance.now();
 
@@ -178,30 +308,84 @@ function PeopleSlider() {
       }
 
       track.scrollLeft = destination;
+      targetPhysicalIndexRef.current += normalizeCarouselPosition(track);
       animationFrameRef.current = null;
       isAnimatingRef.current = false;
       track.style.scrollSnapType = "";
     };
 
     animationFrameRef.current = requestAnimationFrame(tick);
-  };
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+    let isIntersecting = false;
+
+    const updateAutoplayEligibility = () => {
+      setCanAutoplay(
+        isIntersecting && !document.hidden && !reducedMotionQuery.matches,
+      );
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        updateAutoplayEligibility();
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(track);
+    document.addEventListener("visibilitychange", updateAutoplayEligibility);
+    reducedMotionQuery.addEventListener("change", updateAutoplayEligibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener(
+        "visibilitychange",
+        updateAutoplayEligibility,
+      );
+      reducedMotionQuery.removeEventListener(
+        "change",
+        updateAutoplayEligibility,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canAutoplay) return;
+
+    const pauseRemaining = Math.max(0, manualPauseUntil - Date.now());
+    const delay =
+      pauseRemaining > 0 ? pauseRemaining : carouselAutoplayDelay;
+
+    const timeout = window.setTimeout(() => {
+      setManualPauseUntil(0);
+      animateBy(1);
+    }, delay);
+
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, animateBy, canAutoplay, manualPauseUntil]);
 
   const moveBy = (distance: number) => {
-    animateToSlide(targetIndexRef.current + distance);
+    pauseAutoplayAfterInteraction();
+    animateBy(distance);
   };
 
   const handleScroll = () => {
     const track = trackRef.current;
     if (!track || track.clientWidth === 0 || isAnimatingRef.current) return;
 
-    const nextIndex = Math.max(
-      0,
-      Math.min(
-        Math.round(track.scrollLeft / track.clientWidth),
-        communityMembers.length - 1,
-      ),
-    );
+    normalizeCarouselPosition(track);
+    const physicalIndex = getNearestCarouselSlide(track);
+    const nextIndex = physicalIndex % communityMembers.length;
 
+    targetPhysicalIndexRef.current = physicalIndex;
     targetIndexRef.current = nextIndex;
     setActiveIndex(nextIndex);
   };
@@ -216,46 +400,60 @@ function PeopleSlider() {
           aria-roledescription="carousel"
           aria-label="X-Peer community members"
           onScroll={handleScroll}
-          onPointerDown={() => cancelSlideAnimation()}
-          onWheel={() => cancelSlideAnimation()}
+          onPointerDown={() => {
+            pauseAutoplayAfterInteraction();
+            cancelSlideAnimation();
+          }}
+          onWheel={() => {
+            pauseAutoplayAfterInteraction();
+            cancelSlideAnimation();
+          }}
+          onKeyDown={pauseAutoplayAfterInteraction}
           tabIndex={0}
         >
-          {communityMembers.map((member, index) => (
-            <article
-              className="relative isolate h-full flex-[0_0_100%] snap-start overflow-hidden"
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${member.name}, ${member.programme}, ${index + 1} of ${communityMembers.length}`}
-              key={member.name}
-            >
-              <img
-                className="h-full w-full object-cover"
-                src={member.image}
-                width={member.width}
-                height={member.height}
-                style={{ objectPosition: member.objectPosition }}
-                alt={`${member.name}, ${member.programme}.`}
-                loading="lazy"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_38%,color-mix(in_srgb,var(--color-notte)_18%,transparent)_58%,color-mix(in_srgb,var(--color-notte)_94%,transparent)_100%)]"
-                aria-hidden="true"
-              />
-              <div className="absolute right-6 bottom-6 left-6 z-[1] flex items-end justify-between gap-6 text-ivory max-[42rem]:right-5 max-[42rem]:bottom-5 max-[42rem]:left-5">
-                <div className="flex min-w-0 flex-col">
-                  <strong className="text-[clamp(1.8rem,3vw,2.8rem)] leading-none font-bold tracking-[-0.035em]">
-                    {member.name}
-                  </strong>
-                  <span className="mt-2 text-[0.72rem] font-bold tracking-[0.1em] uppercase">
-                    {member.programme}
+          {carouselSlides.map(
+            ({ member, logicalIndex, isClone, key }) => (
+              <article
+                className="relative isolate h-full flex-[0_0_100%] snap-start overflow-hidden"
+                role={isClone ? undefined : "group"}
+                aria-roledescription={isClone ? undefined : "slide"}
+                aria-label={
+                  isClone
+                    ? undefined
+                    : `${member.name}, ${member.programme}, ${logicalIndex + 1} of ${communityMembers.length}`
+                }
+                aria-hidden={isClone || undefined}
+                key={key}
+              >
+                <img
+                  className="h-full w-full object-cover"
+                  src={member.image}
+                  width={member.width}
+                  height={member.height}
+                  style={{ objectPosition: member.objectPosition }}
+                  alt={isClone ? "" : `${member.name}, ${member.programme}.`}
+                  loading={isClone ? "eager" : "lazy"}
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_38%,color-mix(in_srgb,var(--color-notte)_18%,transparent)_58%,color-mix(in_srgb,var(--color-notte)_94%,transparent)_100%)]"
+                  aria-hidden="true"
+                />
+                <div className="absolute right-6 bottom-6 left-6 z-[1] flex items-end justify-between gap-6 text-ivory max-[42rem]:right-5 max-[42rem]:bottom-5 max-[42rem]:left-5">
+                  <div className="flex min-w-0 flex-col">
+                    <strong className="text-[clamp(1.8rem,3vw,2.8rem)] leading-none font-bold tracking-[-0.035em]">
+                      {member.name}
+                    </strong>
+                    <span className="mt-2 text-[0.72rem] font-bold tracking-[0.1em] uppercase">
+                      {member.programme}
+                    </span>
+                  </div>
+                  <span className="shrink-0 text-[0.72rem] font-bold tracking-[0.08em] tabular-nums">
+                    {String(logicalIndex + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <span className="shrink-0 text-[0.72rem] font-bold tracking-[0.08em] tabular-nums">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-            </article>
-          ))}
+              </article>
+            ),
+          )}
         </div>
       </div>
       <figcaption className="mt-5 flex items-center justify-between gap-6 max-[42rem]:flex-col max-[42rem]:items-start max-[42rem]:gap-4">
@@ -265,26 +463,33 @@ function PeopleSlider() {
         <div className="flex shrink-0 items-center gap-2 max-[42rem]:w-full max-[42rem]:justify-between">
           <span
             className="mr-1 text-[0.72rem] font-bold tracking-[0.08em] text-ivory-muted tabular-nums"
-            aria-live="polite"
+            aria-live={canAutoplay && manualPauseUntil === 0 ? "off" : "polite"}
+            aria-atomic="true"
           >
             {String(activeIndex + 1).padStart(2, "0")} /{" "}
             {String(communityMembers.length).padStart(2, "0")}
           </span>
           <div className="flex gap-2">
             <button
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-ivory)_36%,transparent)] bg-transparent text-ivory transition-[border-color,color,transform] duration-[140ms] ease-xpeer-out enabled:cursor-pointer enabled:active:[transform:scale(0.96)] disabled:cursor-not-allowed disabled:opacity-35 motion-reduce:duration-[80ms] fine-pointer:enabled:hover:border-lime fine-pointer:enabled:hover:text-lime"
+              className={carouselControlClassName}
               type="button"
               aria-label="Previous community member"
-              disabled={activeIndex === 0}
+              onPointerDown={() => {
+                pauseAutoplayAfterInteraction();
+                cancelSlideAnimation(false);
+              }}
               onClick={() => moveBy(-1)}
             >
               <ArrowIcon direction="left" />
             </button>
             <button
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-ivory)_36%,transparent)] bg-transparent text-ivory transition-[border-color,color,transform] duration-[140ms] ease-xpeer-out enabled:cursor-pointer enabled:active:[transform:scale(0.96)] disabled:cursor-not-allowed disabled:opacity-35 motion-reduce:duration-[80ms] fine-pointer:enabled:hover:border-lime fine-pointer:enabled:hover:text-lime"
+              className={carouselControlClassName}
               type="button"
               aria-label="Next community member"
-              disabled={activeIndex === communityMembers.length - 1}
+              onPointerDown={() => {
+                pauseAutoplayAfterInteraction();
+                cancelSlideAnimation(false);
+              }}
               onClick={() => moveBy(1)}
             >
               <ArrowIcon direction="right" />

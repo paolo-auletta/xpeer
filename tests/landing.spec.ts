@@ -78,7 +78,7 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(3);
+    .toBe(11);
   await expect(page.getByText("04 / 08")).toBeVisible();
 
   const heroImage = page.getByAltText(
@@ -128,6 +128,182 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
 
   expect(usability.hasHorizontalOverflow).toBe(false);
   expect(usability.undersizedTargets).toEqual([]);
+});
+
+test("automatically advances the visible community carousel without playback controls", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const peopleCarousel = page.getByRole("region", {
+    name: "X-Peer community members",
+  });
+  await peopleCarousel.scrollIntoViewIfNeeded();
+
+  await expect(page.getByText("02 / 08")).toBeVisible({ timeout: 7000 });
+  await expect(
+    page.getByRole("button", { name: /automatic carousel/i }),
+  ).toHaveCount(0);
+});
+
+test("loops circularly and resumes seven seconds after the last manual navigation", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const peopleCarousel = page.getByRole("region", {
+    name: "X-Peer community members",
+  });
+  await peopleCarousel.scrollIntoViewIfNeeded();
+
+  await page.getByRole("button", { name: "Previous community member" }).click();
+  await expect(page.getByText("08 / 08")).toBeVisible();
+  await expect
+    .poll(() =>
+      peopleCarousel.evaluate((element) =>
+        Math.round(element.scrollLeft / element.clientWidth),
+      ),
+    )
+    .toBe(15);
+
+  const previousPerson = page.getByRole("button", {
+    name: "Previous community member",
+  });
+  await page.evaluate(() => {
+    const track = document.querySelector<HTMLElement>(
+      '[aria-label="X-Peer community members"]',
+    );
+    const samples: number[] = [];
+    const startedAt = performance.now();
+    const testWindow = window as typeof window & {
+      __carouselBackwardSamples?: number[];
+    };
+
+    testWindow.__carouselBackwardSamples = samples;
+
+    const sample = (now: number) => {
+      if (track && track.clientWidth > 0) {
+        samples.push(track.scrollLeft / track.clientWidth);
+      }
+
+      if (now - startedAt < 650) requestAnimationFrame(sample);
+    };
+
+    requestAnimationFrame(sample);
+  });
+  await previousPerson.click();
+  await expect(page.getByText("07 / 08")).toBeVisible();
+  await expect
+    .poll(() =>
+      peopleCarousel.evaluate((element) =>
+        Math.round(element.scrollLeft / element.clientWidth),
+      ),
+    )
+    .toBe(14);
+  await page.waitForTimeout(700);
+  const backwardSamples = await page.evaluate(
+    () =>
+      (
+        window as typeof window & {
+          __carouselBackwardSamples?: number[];
+        }
+      ).__carouselBackwardSamples ?? [],
+  );
+  expect(backwardSamples.length).toBeGreaterThan(0);
+  expect(
+    backwardSamples.every(
+      (physicalPosition) =>
+        physicalPosition >= 13.5 && physicalPosition <= 15.5,
+    ),
+  ).toBe(true);
+
+  const nextPerson = page.getByRole("button", {
+    name: "Next community member",
+  });
+  await nextPerson.click();
+  await expect(page.getByText("08 / 08")).toBeVisible();
+  await expect
+    .poll(() =>
+      peopleCarousel.evaluate((element) =>
+        Math.round(element.scrollLeft / element.clientWidth),
+      ),
+    )
+    .toBe(15);
+
+  await page.evaluate(() => {
+    const track = document.querySelector<HTMLElement>(
+      '[aria-label="X-Peer community members"]',
+    );
+    const samples: number[] = [];
+    const startedAt = performance.now();
+    const testWindow = window as typeof window & {
+      __carouselLoopSamples?: number[];
+    };
+
+    testWindow.__carouselLoopSamples = samples;
+
+    const sample = (now: number) => {
+      if (track && track.clientWidth > 0) {
+        samples.push(track.scrollLeft / track.clientWidth);
+      }
+
+      if (now - startedAt < 650) requestAnimationFrame(sample);
+    };
+
+    requestAnimationFrame(sample);
+  });
+  await nextPerson.click();
+  await expect(page.getByText("01 / 08")).toBeVisible();
+  await expect
+    .poll(() =>
+      peopleCarousel.evaluate((element) =>
+        Math.round(element.scrollLeft / element.clientWidth),
+      ),
+    )
+    .toBe(8);
+  await page.waitForTimeout(700);
+  const loopSamples = await page.evaluate(
+    () =>
+      (
+        window as typeof window & {
+          __carouselLoopSamples?: number[];
+        }
+      ).__carouselLoopSamples ?? [],
+  );
+  expect(loopSamples.length).toBeGreaterThan(0);
+  expect(
+    loopSamples.every(
+      (physicalPosition) =>
+        physicalPosition >= 14.5 || physicalPosition <= 8.5,
+    ),
+  ).toBe(true);
+
+  await nextPerson.click();
+  await expect(page.getByText("02 / 08")).toBeVisible();
+  await page.waitForTimeout(5500);
+  await expect(page.getByText("02 / 08")).toBeVisible();
+  await expect(page.getByText("03 / 08")).toBeVisible({ timeout: 2500 });
+});
+
+test("does not autoplay positional motion when reduced motion is requested", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const peopleCarousel = page.getByRole("region", {
+    name: "X-Peer community members",
+  });
+  await peopleCarousel.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(5300);
+
+  await expect(page.getByText("01 / 08")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /automatic carousel/i }),
+  ).toHaveCount(0);
 });
 
 test("provides a keyboard bypass for the fixed navigation", async ({ page }) => {
