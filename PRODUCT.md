@@ -52,9 +52,9 @@ X-Peer replaces the luck of who a student happens to meet right from the start w
 ## Evidence on Hand
 
 - `landing-copy.md` contains the approved page narrative, section structure, CTA labels, and positioning copy.
-- `assets/` contains the Figtree font family, X-Peer logo/mark/favicon variants, and four topic icon PNGs.
+- `assets/` contains the Figtree font family, X-Peer logo/mark/favicon variants, four topic icon PNGs, and eight approved member portraits with names and programmes.
 - The attached Instagram mentor card provides a visual reference for social/mentor storytelling.
-- No real mentor directory, testimonials, photography set, application questions, or social URLs are currently present in the repository; these must not be invented as factual claims.
+- No mentor biographies, testimonials, application questions, or social URLs are currently present in the repository; these must not be invented as factual claims.
 
 ## Product Principles
 

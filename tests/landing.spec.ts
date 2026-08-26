@@ -38,6 +38,49 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
     ),
   ).toBeVisible();
 
+  const peopleCarousel = page.getByRole("region", {
+    name: "X-Peer community members",
+  });
+  await expect(peopleCarousel.getByRole("group")).toHaveCount(8);
+  await expect(
+    page.getByText("follow us on Instagram to learn more."),
+  ).toBeVisible();
+
+  const nextPerson = page.getByRole("button", {
+    name: "Next community member",
+  });
+  await nextPerson.click({ clickCount: 3 });
+  await expect(page.getByText("04 / 08")).toBeVisible();
+  const observedCounters = await page.evaluate(
+    () =>
+      new Promise<string[]>((resolve) => {
+        const counter = document.querySelector('[aria-live="polite"]');
+        const values: string[] = [];
+        const startedAt = performance.now();
+
+        const sample = (now: number) => {
+          values.push(counter?.textContent?.replace(/\s+/g, " ").trim() ?? "");
+
+          if (now - startedAt < 650) {
+            requestAnimationFrame(sample);
+          } else {
+            resolve(values);
+          }
+        };
+
+        requestAnimationFrame(sample);
+      }),
+  );
+  expect([...new Set(observedCounters)]).toEqual(["04 / 08"]);
+  await expect
+    .poll(() =>
+      peopleCarousel.evaluate((element) =>
+        Math.round(element.scrollLeft / element.clientWidth),
+      ),
+    )
+    .toBe(3);
+  await expect(page.getByText("04 / 08")).toBeVisible();
+
   const heroImage = page.getByAltText(
     "University students talking together between lectures.",
   );

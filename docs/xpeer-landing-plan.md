@@ -163,7 +163,7 @@ Use the local Figtree files in `assets/Font - Figtree/` with explicit weights. D
 - Final mentee and mentor form URLs (or confirmation that the forms are still being built).
 - Final social URLs/handles and a contact email.
 - Hero media choice: approved photo collage, video, or both with a fallback poster.
-- Approved mentor portraits and the minimum profile facts that may be shown publicly.
+- Any profile facts beyond the approved names and programmes already supplied with the member portraits.
 - Cohort dates, eligibility/selection notes, and what happens after submission.
 - Privacy/consent wording and the Google Sheet owners/permissions.
 - Domain and hosting account, plus the production URL.

@@ -37,6 +37,8 @@
 
 *`the people are the opportunity.`*
 
+`follow us on Instagram to learn more.`
+
 ---
 
 **`who it's for`**

@@ -1,13 +1,300 @@
-import { useRef } from "react";
-import communityPhoto from "../../assets/stock/xpeer-community.jpg";
-import communityPhoto640 from "../../assets/stock/xpeer-community-640.avif";
-import communityPhoto960 from "../../assets/stock/xpeer-community-960.avif";
-import communityPhoto1280 from "../../assets/stock/xpeer-community-1280.avif";
+import { useEffect, useRef, useState } from "react";
+import arinaPhoto from "../../assets/foto/Arina, BIEM.webp";
+import filippoPhoto from "../../assets/foto/Filippo, BIEM.webp";
+import flavioPhoto from "../../assets/foto/Flavio, BIEM.webp";
+import juliettePhoto from "../../assets/foto/Juliette, BEMACC.webp";
+import katarinaPhoto from "../../assets/foto/Katarina, BESS.webp";
+import neelPhoto from "../../assets/foto/Neel, BAI.webp";
+import paoloPhoto from "../../assets/foto/Paolo, BEMACS.webp";
+import rebecaPhoto from "../../assets/foto/Rebeca, BIEM.webp";
 import { usePeopleHighlight } from "../hooks/useLandingMotion";
 import { applicationForms } from "../lib/applicationLinks";
 import { cn } from "../lib/cn";
 import { ActionContent, actionPressMotion } from "./ActionContent";
 import { ApplicationLink } from "./ApplicationLink";
+import { ArrowIcon } from "./ArrowIcon";
+
+const communityMembers = [
+  {
+    name: "Filippo",
+    programme: "BIEM",
+    image: filippoPhoto,
+    width: 900,
+    height: 600,
+    objectPosition: "50% 45%",
+  },
+  {
+    name: "Juliette",
+    programme: "BEMACC",
+    image: juliettePhoto,
+    width: 899,
+    height: 1200,
+    objectPosition: "50% 48%",
+  },
+  {
+    name: "Paolo",
+    programme: "BEMACS",
+    image: paoloPhoto,
+    width: 800,
+    height: 800,
+    objectPosition: "50% 35%",
+  },
+  {
+    name: "Flavio",
+    programme: "BIEM",
+    image: flavioPhoto,
+    width: 800,
+    height: 1200,
+    objectPosition: "50% 42%",
+  },
+  {
+    name: "Katarina",
+    programme: "BESS",
+    image: katarinaPhoto,
+    width: 913,
+    height: 1200,
+    objectPosition: "50% 45%",
+  },
+  {
+    name: "Neel",
+    programme: "BAI",
+    image: neelPhoto,
+    width: 800,
+    height: 1200,
+    objectPosition: "50% 42%",
+  },
+  {
+    name: "Rebeca",
+    programme: "BIEM",
+    image: rebecaPhoto,
+    width: 900,
+    height: 675,
+    objectPosition: "50% 45%",
+  },
+  {
+    name: "Arina",
+    programme: "BIEM",
+    image: arinaPhoto,
+    width: 900,
+    height: 1200,
+    objectPosition: "50% 40%",
+  },
+] as const;
+
+function PeopleSlider() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const targetIndexRef = useRef(0);
+  const animationFrameRef = useRef<number | null>(null);
+  const isAnimatingRef = useRef(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const cancelSlideAnimation = (syncToPosition = true) => {
+    const track = trackRef.current;
+
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+
+    isAnimatingRef.current = false;
+
+    if (!track) return;
+
+    track.style.scrollSnapType = "";
+
+    if (!syncToPosition || track.clientWidth === 0) return;
+
+    const index = Math.max(
+      0,
+      Math.min(
+        Math.round(track.scrollLeft / track.clientWidth),
+        communityMembers.length - 1,
+      ),
+    );
+
+    targetIndexRef.current = index;
+    setActiveIndex(index);
+  };
+
+  useEffect(
+    () => () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    },
+    [],
+  );
+
+  const animateToSlide = (index: number) => {
+    const track = trackRef.current;
+    if (!track || track.clientWidth === 0) return;
+
+    const nextIndex = Math.max(0, Math.min(index, communityMembers.length - 1));
+    targetIndexRef.current = nextIndex;
+    setActiveIndex(nextIndex);
+
+    if (animationFrameRef.current !== null) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    const destination = nextIndex * track.clientWidth;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduceMotion) {
+      isAnimatingRef.current = false;
+      track.scrollLeft = destination;
+      return;
+    }
+
+    const start = track.scrollLeft;
+    const distance = destination - start;
+
+    if (Math.abs(distance) < 1) {
+      isAnimatingRef.current = false;
+      track.scrollLeft = destination;
+      return;
+    }
+
+    const duration = Math.min(
+      520,
+      280 + (Math.abs(distance) / track.clientWidth) * 45,
+    );
+    const startedAt = performance.now();
+
+    isAnimatingRef.current = true;
+    track.style.scrollSnapType = "none";
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      track.scrollLeft = start + distance * easedProgress;
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      track.scrollLeft = destination;
+      animationFrameRef.current = null;
+      isAnimatingRef.current = false;
+      track.style.scrollSnapType = "";
+    };
+
+    animationFrameRef.current = requestAnimationFrame(tick);
+  };
+
+  const moveBy = (distance: number) => {
+    animateToSlide(targetIndexRef.current + distance);
+  };
+
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track || track.clientWidth === 0 || isAnimatingRef.current) return;
+
+    const nextIndex = Math.max(
+      0,
+      Math.min(
+        Math.round(track.scrollLeft / track.clientWidth),
+        communityMembers.length - 1,
+      ),
+    );
+
+    targetIndexRef.current = nextIndex;
+    setActiveIndex(nextIndex);
+  };
+
+  return (
+    <figure className="m-0 min-w-0 self-center">
+      <div className="relative overflow-hidden rounded-3xl bg-forest max-[42rem]:rounded-2xl">
+        <div
+          ref={trackRef}
+          className="flex aspect-[1.16] snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] max-[56rem]:aspect-[1.5] max-[42rem]:aspect-[0.92] [&::-webkit-scrollbar]:hidden"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="X-Peer community members"
+          onScroll={handleScroll}
+          onPointerDown={() => cancelSlideAnimation()}
+          onWheel={() => cancelSlideAnimation()}
+          tabIndex={0}
+        >
+          {communityMembers.map((member, index) => (
+            <article
+              className="relative isolate h-full flex-[0_0_100%] snap-start overflow-hidden"
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${member.name}, ${member.programme}, ${index + 1} of ${communityMembers.length}`}
+              key={member.name}
+            >
+              <img
+                className="h-full w-full object-cover"
+                src={member.image}
+                width={member.width}
+                height={member.height}
+                style={{ objectPosition: member.objectPosition }}
+                alt={`${member.name}, ${member.programme}.`}
+                loading="lazy"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_38%,color-mix(in_srgb,var(--color-notte)_18%,transparent)_58%,color-mix(in_srgb,var(--color-notte)_94%,transparent)_100%)]"
+                aria-hidden="true"
+              />
+              <div className="absolute right-6 bottom-6 left-6 z-[1] flex items-end justify-between gap-6 text-ivory max-[42rem]:right-5 max-[42rem]:bottom-5 max-[42rem]:left-5">
+                <div className="flex min-w-0 flex-col">
+                  <strong className="text-[clamp(1.8rem,3vw,2.8rem)] leading-none font-bold tracking-[-0.035em]">
+                    {member.name}
+                  </strong>
+                  <span className="mt-2 text-[0.72rem] font-bold tracking-[0.1em] uppercase">
+                    {member.programme}
+                  </span>
+                </div>
+                <span className="shrink-0 text-[0.72rem] font-bold tracking-[0.08em] tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <figcaption className="mt-5 flex items-center justify-between gap-6 max-[42rem]:flex-col max-[42rem]:items-start max-[42rem]:gap-4">
+        <p className="m-0 max-w-[28ch] text-[clamp(1rem,1.25vw,1.15rem)] leading-[1.45] text-ivory-muted">
+          follow us on Instagram to learn more.
+        </p>
+        <div className="flex shrink-0 items-center gap-2 max-[42rem]:w-full max-[42rem]:justify-between">
+          <span
+            className="mr-1 text-[0.72rem] font-bold tracking-[0.08em] text-ivory-muted tabular-nums"
+            aria-live="polite"
+          >
+            {String(activeIndex + 1).padStart(2, "0")} /{" "}
+            {String(communityMembers.length).padStart(2, "0")}
+          </span>
+          <div className="flex gap-2">
+            <button
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-ivory)_36%,transparent)] bg-transparent text-ivory transition-[border-color,color,transform] duration-[140ms] ease-xpeer-out enabled:cursor-pointer enabled:active:[transform:scale(0.96)] disabled:cursor-not-allowed disabled:opacity-35 motion-reduce:duration-[80ms] fine-pointer:enabled:hover:border-lime fine-pointer:enabled:hover:text-lime"
+              type="button"
+              aria-label="Previous community member"
+              disabled={activeIndex === 0}
+              onClick={() => moveBy(-1)}
+            >
+              <ArrowIcon direction="left" />
+            </button>
+            <button
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-ivory)_36%,transparent)] bg-transparent text-ivory transition-[border-color,color,transform] duration-[140ms] ease-xpeer-out enabled:cursor-pointer enabled:active:[transform:scale(0.96)] disabled:cursor-not-allowed disabled:opacity-35 motion-reduce:duration-[80ms] fine-pointer:enabled:hover:border-lime fine-pointer:enabled:hover:text-lime"
+              type="button"
+              aria-label="Next community member"
+              disabled={activeIndex === communityMembers.length - 1}
+              onClick={() => moveBy(1)}
+            >
+              <ArrowIcon direction="right" />
+            </button>
+          </div>
+        </div>
+      </figcaption>
+    </figure>
+  );
+}
 
 export function People() {
   const peopleSectionRef = useRef<HTMLElement>(null);
@@ -39,32 +326,7 @@ export function People() {
           </strong>
         </p>
       </div>
-      <figure className="relative m-0 aspect-[1.16] self-center overflow-hidden rounded-3xl after:absolute after:inset-0 after:bg-[linear-gradient(180deg,transparent_55%,color-mix(in_srgb,var(--color-notte)_64%,transparent))] max-[56rem]:aspect-[1.5] max-[42rem]:aspect-[0.92] max-[42rem]:rounded-2xl">
-        <picture className="block h-full w-full">
-          <source
-            type="image/avif"
-            srcSet={`${communityPhoto640} 640w, ${communityPhoto960} 960w, ${communityPhoto1280} 1280w`}
-            sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 100vw, 55vw"
-          />
-          <img
-            className="h-full w-full object-cover object-center max-[42rem]:[object-position:55%_center]"
-            src={communityPhoto}
-            width="1800"
-            height="1013"
-            sizes="(max-width: 42rem) 100vw, (max-width: 56rem) 100vw, 55vw"
-            alt="A group of university students talking together in a lecture hall."
-            loading="lazy"
-          />
-        </picture>
-        <figcaption className="absolute bottom-6 left-6 z-[1] flex flex-col text-ivory">
-          <span className="text-[0.72rem] font-bold tracking-[0.1em] uppercase">
-            the wider circle
-          </span>
-          <strong className="mt-1 text-[clamp(1.35rem,2vw,2rem)] font-semibold">
-            people to do it with.
-          </strong>
-        </figcaption>
-      </figure>
+      <PeopleSlider />
     </section>
   );
 }
