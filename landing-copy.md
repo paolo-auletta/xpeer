@@ -1,12 +1,12 @@
 ***`if you want to go fast, go alone. if you want to go far, go together.`***
 
-`xpeer is a peer mentorship community at Bocconi. mentees and mentors are one year apart, with a circle of people worth knowing.`
+`xpeer is a peer mentorship community by Bocconi students. mentees and mentors are one year apart, with a circle of people worth knowing.`
 
 **`[ apply as a mentee ] [ become a mentor ]`**
 
 ---
 
-`too much of university depends on who you happen to meet in the first weeks. sometimes, it's the person who tells you which exam really matters, which association is worth applying to, how spring weeks work, or simply that the confusion you feel is normal.`
+`too much of university depends on who you happen to meet right from the start. sometimes, it's the person who tells you which exam really matters, which association is worth applying to, how spring weeks work, or simply that the confusion you feel is normal.`
 
 `meeting them usually comes down to luck. we built something better.`
 
@@ -25,7 +25,7 @@
 
 `[USE THE ICONS ATTACHED]`
 
-`give it a year and it stops feeling like a programme and starts feeling like a friendship.`
+`build lasting connections within the Bocconi community.`
 
 ---
 
@@ -49,6 +49,12 @@
 
 `applications for the first cohort are open.`
 
+`this opportunity is for students determined to excel, open to valuable advice, and ready to give back to the community in the future.`
+
+`places are limited to ensure a small, carefully selected community where meaningful connections can grow.`
+
 **`[ apply as a mentee ] [ become a mentor ]`**
 
 ***`today's mentees become tomorrow's mentors. the circle only ever widens.`***
+
+`independent initiative, not affiliated with Bocconi University.`

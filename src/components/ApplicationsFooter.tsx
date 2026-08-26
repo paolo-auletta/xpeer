@@ -62,6 +62,17 @@ export function Applications() {
               are open.
             </span>
           </h2>
+          <div className="mt-[clamp(2rem,3.5vw,3rem)] grid max-w-[38rem] gap-4 text-[clamp(1.05rem,1.35vw,1.2rem)] leading-[1.55] text-ivory-muted">
+            <p className="m-0">
+              this opportunity is for students determined to excel, open to
+              valuable advice, and ready to give back to the community in the
+              future.
+            </p>
+            <p className="m-0">
+              places are limited to ensure a small, carefully selected community
+              where meaningful connections can grow.
+            </p>
+          </div>
         </div>
         <div className="grid self-center gap-[0.7rem]">
           <ApplicationLink
@@ -133,9 +144,14 @@ export function Footer() {
         </p>
       </div>
       <div className="mx-auto mt-[clamp(2.75rem,4vw,4rem)] grid max-w-[91rem] grid-cols-[1fr_auto_1fr] items-center gap-8 border-t [border-top-color:color-mix(in_srgb,var(--color-ivory)_24%,transparent)] pt-[1.3rem] max-[56rem]:grid-cols-1">
-        <p className="m-0 text-[0.75rem] text-ivory-muted">
-          peer mentorship, one year apart.
-        </p>
+        <div className="grid gap-1.5">
+          <p className="m-0 text-[0.75rem] text-ivory-muted">
+            peer mentorship, one year apart.
+          </p>
+          <p className="m-0 text-[0.7rem] leading-normal text-ivory-muted">
+            independent initiative, not affiliated with Bocconi University.
+          </p>
+        </div>
         <nav
           className="flex gap-[clamp(1rem,2.5vw,2.3rem)] max-[42rem]:flex-wrap max-[42rem]:gap-x-6 max-[42rem]:gap-y-4"
           aria-label="Footer navigation"

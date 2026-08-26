@@ -6,11 +6,13 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  await expect(page).toHaveTitle("X-Peer — peer mentorship at Bocconi");
+  await expect(page).toHaveTitle(
+    "X-Peer — peer mentorship by Bocconi students",
+  );
   await expect(page.locator("h1")).toBeVisible();
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     "content",
-    "X-Peer — peer mentorship at Bocconi",
+    "X-Peer — peer mentorship by Bocconi students",
   );
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",
@@ -20,6 +22,21 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
     "content",
     "https://xpeer.example/social-preview.jpg",
   );
+  await expect(
+    page.getByText(
+      "this opportunity is for students determined to excel, open to valuable advice, and ready to give back to the community in the future.",
+    ),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "places are limited to ensure a small, carefully selected community where meaningful connections can grow.",
+    ),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "independent initiative, not affiliated with Bocconi University.",
+    ),
+  ).toBeVisible();
 
   const heroImage = page.getByAltText(
     "University students talking together between lectures.",

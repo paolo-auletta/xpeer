@@ -144,8 +144,9 @@ export function Hero() {
             </span>
           </h1>
           <p className="mt-[clamp(1.8rem,3.5vw,2.8rem)] mb-0 max-w-[35rem] text-[clamp(1.08rem,1.45vw,1.32rem)] leading-[1.48] max-[42rem]:mt-4 max-[42rem]:max-w-[33ch] max-[42rem]:text-[clamp(1rem,4.6vw,1.12rem)] max-[42rem]:leading-[1.48] max-[42rem]:tracking-[-0.015em] max-[42rem]:text-ivory-muted">
-            xpeer is a peer mentorship community at Bocconi. mentees and mentors
-            are one year apart, with a circle of people worth knowing.
+            xpeer is a peer mentorship community by Bocconi students. mentees
+            and mentors are one year apart, with a circle of people worth
+            knowing.
           </p>
           <nav
             className="mt-8 grid max-w-[35rem] grid-cols-2 gap-[0.6rem] max-[42rem]:mt-[0.9rem] max-[42rem]:grid-cols-1 max-[42rem]:gap-[0.45rem]"

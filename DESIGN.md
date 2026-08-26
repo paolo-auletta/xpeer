@@ -1,6 +1,6 @@
 ---
 name: X-Peer
-description: "A warm editorial system for one-year-ahead peer mentorship at Bocconi."
+description: "A warm editorial system for one-year-ahead peer mentorship by Bocconi students."
 colors:
   forest: "#0e4034"
   notte: "#06231c"

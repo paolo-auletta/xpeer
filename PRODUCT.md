@@ -18,11 +18,11 @@ delegated: recommend the simplest production-ready static marketing stack that s
 
 ## Product Purpose
 
-X-Peer is a peer mentorship community at Bocconi, built by Bocconi students for Bocconi students. The first landing page should make the programme legible, credible, and easy to apply to as a mentee or mentor. First-release success is measured primarily by qualified applications, with community trust and recognition supporting that action.
+X-Peer is a peer mentorship community by Bocconi students for Bocconi students. The first landing page should make the programme legible, credible, and easy to apply to as a mentee or mentor. First-release success is measured primarily by qualified applications, with community trust and recognition supporting that action.
 
 ## Positioning
 
-X-Peer replaces the luck of who a student happens to meet in their first weeks with a close, one-year-ahead peer relationship and a wider circle of people to grow with. The programme is intentionally near enough to remember the beginning and far enough ahead to help someone move through it.
+X-Peer replaces the luck of who a student happens to meet right from the start with a close, one-year-ahead peer relationship and a wider circle of people to grow with. The programme is intentionally near enough to remember the beginning and far enough ahead to help someone move through it.
 
 ## Operating Context
 

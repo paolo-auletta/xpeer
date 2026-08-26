@@ -6,7 +6,7 @@
 
 ## 1. Product brief
 
-X-Peer is a peer mentorship community at Bocconi, built by Bocconi students for Bocconi students. The landing page is the public access point from Instagram and other social channels. It has two jobs:
+X-Peer is a peer mentorship community by Bocconi students for Bocconi students. The landing page is the public access point from Instagram and other social channels. It has two jobs:
 
 1. Make the programme feel specific, credible, and human within the first few seconds.
 2. Turn that understanding into a qualified application from either a first-year mentee or a second-year mentor.
@@ -86,7 +86,7 @@ The page follows the supplied copy order, but each section has a conversion job.
   - `assets/icons/xpeer_icon_getting_in.png`
   - `assets/icons/xpeer_icon_life_in_milan.png`
 - Pair each icon with the exact supplied topic label and supporting copy. The icons should be allowed to carry real visual scale instead of being reduced to tiny bullets.
-- End with the “it stops feeling like a programme and starts feeling like a friendship” line as the emotional turn.
+- End with “build lasting connections within the Bocconi community” as the emotional turn.
 
 ### Community — “the people”
 
@@ -104,12 +104,14 @@ The page follows the supplied copy order, but each section has a conversion job.
 ### Close — applications and the widening circle
 
 - Forest closing band with the supplied “applications for the first cohort are open” message.
+- Clarify the high-expectation, advice-ready mindset and the future commitment to give back.
+- Explain that places are limited to protect a small, carefully selected community where meaningful connections can grow.
 - Repeat the two application buttons.
 - Finish on “today's mentees become tomorrow's mentors” so the programme's loop is clear.
 
 ### Footer
 
-- X-Peer mark/lockup, social links, contact address, and a privacy/data-handling link once approved.
+- X-Peer mark/lockup, an independent-initiative/non-affiliation disclaimer, social links, contact address, and a privacy/data-handling link once approved.
 - Keep the footer useful but visually quiet; it should not introduce unsupported claims or a fake newsletter signup.
 
 ## 5. Visual direction and design rules

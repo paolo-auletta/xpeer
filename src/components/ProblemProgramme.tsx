@@ -42,8 +42,8 @@ export function Problem() {
     >
       <div className="mx-auto grid max-w-[91rem] grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] gap-[clamp(4rem,8vw,9rem)] max-[56rem]:grid-cols-1 max-[42rem]:gap-9">
         <h2 className="m-0 max-w-[17ch] [align-self:start] pb-[0.08em] text-[clamp(3.2rem,5.2vw,5.6rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance max-[42rem]:max-w-[16ch] max-[42rem]:text-[clamp(2.65rem,10.5vw,3.5rem)] max-[42rem]:leading-none">
-          too much of university depends on who you happen to meet in the first
-          weeks.
+          too much of university depends on who you happen to meet right from
+          the start.
         </h2>
         <div className="max-w-[40rem] self-center max-[56rem]:ml-0 max-[56rem]:w-[min(100%,42rem)] max-[56rem]:max-w-[46rem]">
           <p className="m-0 text-[clamp(1.25rem,1.8vw,1.65rem)] leading-normal tracking-[-0.015em] text-ivory-muted max-[42rem]:text-[clamp(1.05rem,4.8vw,1.15rem)] max-[42rem]:leading-normal">
@@ -121,9 +121,9 @@ export function Programme() {
 
       <div className="relative mt-[clamp(6rem,10vw,10rem)] flex min-h-[clamp(27rem,38vw,34rem)] items-center justify-center overflow-hidden rounded-[1.25rem] bg-lime p-[clamp(3.5rem,7vw,7rem)] text-notte after:absolute after:top-[-12rem] after:right-[-12rem] after:h-[32rem] after:w-[32rem] after:rounded-[50%] after:border after:border-[color-mix(in_srgb,var(--color-forest)_28%,transparent)] max-[42rem]:min-h-[27rem] max-[42rem]:rounded-2xl max-[42rem]:py-8 max-[42rem]:px-[1.3rem] max-[42rem]:after:top-[-6rem] max-[42rem]:after:right-[-5rem] max-[42rem]:after:h-[20rem] max-[42rem]:after:w-[20rem]">
         <p className="relative z-[1] m-0 max-w-[18ch] pb-[0.1em] text-center text-[clamp(2.7rem,5.7vw,5.7rem)] leading-[1.06] font-light tracking-[-0.04em] text-balance max-[42rem]:text-[clamp(2.45rem,10.8vw,3.25rem)] max-[42rem]:leading-[1.08]">
-          give it a year and it stops feeling like a programme
+          build lasting connections
           <strong className="mt-[0.15em] block font-bold">
-            and starts feeling like a friendship.
+            within the Bocconi community.
           </strong>
         </p>
       </div>
