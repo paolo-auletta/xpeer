@@ -41,16 +41,39 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
   const peopleCarousel = page.getByRole("region", {
     name: "X-Peer community members",
   });
-  await expect(peopleCarousel.getByRole("group")).toHaveCount(8);
+  const communitySlides = peopleCarousel.getByRole("group");
+  await expect(communitySlides).toHaveCount(12);
+  await expect
+    .poll(() =>
+      communitySlides.evaluateAll((slides) =>
+        slides.map((slide) => slide.getAttribute("aria-label")),
+      ),
+    )
+    .toEqual([
+      "Filippo, BIEM, 1 of 12",
+      "Juliette, BEMACC, 2 of 12",
+      "Paolo, BEMACS, 3 of 12",
+      "Meja, BIEM, 4 of 12",
+      "Flavio, BIEM, 5 of 12",
+      "Katarina, BESS, 6 of 12",
+      "Neel, BAI, 7 of 12",
+      "Rebeca, BIEM, 8 of 12",
+      "Oscar, BIG, 9 of 12",
+      "Arina, BIEM, 10 of 12",
+      "Abhiraam, BIEM, 11 of 12",
+      "Andrea, BESS, 12 of 12",
+    ]);
   await expect(
-    page.getByText("follow us on Instagram to learn more."),
-  ).toBeVisible();
+    page.getByRole("link", {
+      name: "Instagram",
+    }),
+  ).toHaveAttribute("href", "https://www.instagram.com/xpeer.io/");
 
   const nextPerson = page.getByRole("button", {
     name: "Next community member",
   });
   await nextPerson.click({ clickCount: 3 });
-  await expect(page.getByText("04 / 08")).toBeVisible();
+  await expect(page.getByText("04 / 12")).toBeVisible();
   const observedCounters = await page.evaluate(
     () =>
       new Promise<string[]>((resolve) => {
@@ -71,15 +94,15 @@ test("keeps the mobile landing experience fast, accessible, and actionable", asy
         requestAnimationFrame(sample);
       }),
   );
-  expect([...new Set(observedCounters)]).toEqual(["04 / 08"]);
+  expect([...new Set(observedCounters)]).toEqual(["04 / 12"]);
   await expect
     .poll(() =>
       peopleCarousel.evaluate((element) =>
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(11);
-  await expect(page.getByText("04 / 08")).toBeVisible();
+    .toBe(15);
+  await expect(page.getByText("04 / 12")).toBeVisible();
 
   const heroImage = page.getByAltText(
     "University students talking together between lectures.",
@@ -141,7 +164,7 @@ test("automatically advances the visible community carousel without playback con
   });
   await peopleCarousel.scrollIntoViewIfNeeded();
 
-  await expect(page.getByText("02 / 08")).toBeVisible({ timeout: 7000 });
+  await expect(page.getByText("02 / 12")).toBeVisible({ timeout: 7000 });
   await expect(
     page.getByRole("button", { name: /automatic carousel/i }),
   ).toHaveCount(0);
@@ -159,14 +182,14 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
   await peopleCarousel.scrollIntoViewIfNeeded();
 
   await page.getByRole("button", { name: "Previous community member" }).click();
-  await expect(page.getByText("08 / 08")).toBeVisible();
+  await expect(page.getByText("12 / 12")).toBeVisible();
   await expect
     .poll(() =>
       peopleCarousel.evaluate((element) =>
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(15);
+    .toBe(23);
 
   const previousPerson = page.getByRole("button", {
     name: "Previous community member",
@@ -194,14 +217,14 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
     requestAnimationFrame(sample);
   });
   await previousPerson.click();
-  await expect(page.getByText("07 / 08")).toBeVisible();
+  await expect(page.getByText("11 / 12")).toBeVisible();
   await expect
     .poll(() =>
       peopleCarousel.evaluate((element) =>
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(14);
+    .toBe(22);
   await page.waitForTimeout(700);
   const backwardSamples = await page.evaluate(
     () =>
@@ -215,7 +238,7 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
   expect(
     backwardSamples.every(
       (physicalPosition) =>
-        physicalPosition >= 13.5 && physicalPosition <= 15.5,
+        physicalPosition >= 21.5 && physicalPosition <= 23.5,
     ),
   ).toBe(true);
 
@@ -223,14 +246,14 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
     name: "Next community member",
   });
   await nextPerson.click();
-  await expect(page.getByText("08 / 08")).toBeVisible();
+  await expect(page.getByText("12 / 12")).toBeVisible();
   await expect
     .poll(() =>
       peopleCarousel.evaluate((element) =>
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(15);
+    .toBe(23);
 
   await page.evaluate(() => {
     const track = document.querySelector<HTMLElement>(
@@ -255,14 +278,14 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
     requestAnimationFrame(sample);
   });
   await nextPerson.click();
-  await expect(page.getByText("01 / 08")).toBeVisible();
+  await expect(page.getByText("01 / 12")).toBeVisible();
   await expect
     .poll(() =>
       peopleCarousel.evaluate((element) =>
         Math.round(element.scrollLeft / element.clientWidth),
       ),
     )
-    .toBe(8);
+    .toBe(12);
   await page.waitForTimeout(700);
   const loopSamples = await page.evaluate(
     () =>
@@ -276,15 +299,15 @@ test("loops circularly and resumes seven seconds after the last manual navigatio
   expect(
     loopSamples.every(
       (physicalPosition) =>
-        physicalPosition >= 14.5 || physicalPosition <= 8.5,
+        physicalPosition >= 22.5 || physicalPosition <= 12.5,
     ),
   ).toBe(true);
 
   await nextPerson.click();
-  await expect(page.getByText("02 / 08")).toBeVisible();
+  await expect(page.getByText("02 / 12")).toBeVisible();
   await page.waitForTimeout(5500);
-  await expect(page.getByText("02 / 08")).toBeVisible();
-  await expect(page.getByText("03 / 08")).toBeVisible({ timeout: 2500 });
+  await expect(page.getByText("02 / 12")).toBeVisible();
+  await expect(page.getByText("03 / 12")).toBeVisible({ timeout: 2500 });
 });
 
 test("does not autoplay positional motion when reduced motion is requested", async ({
@@ -300,7 +323,7 @@ test("does not autoplay positional motion when reduced motion is requested", asy
   await peopleCarousel.scrollIntoViewIfNeeded();
   await page.waitForTimeout(5300);
 
-  await expect(page.getByText("01 / 08")).toBeVisible();
+  await expect(page.getByText("01 / 12")).toBeVisible();
   await expect(
     page.getByRole("button", { name: /automatic carousel/i }),
   ).toHaveCount(0);

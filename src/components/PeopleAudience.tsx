@@ -5,12 +5,16 @@ import {
   useRef,
   useState,
 } from "react";
+import abhiraamPhoto from "../../assets/foto/Abhiraam, BIEM.jpg";
+import andreaPhoto from "../../assets/foto/Andrea, BESS.png";
 import arinaPhoto from "../../assets/foto/Arina, BIEM.webp";
 import filippoPhoto from "../../assets/foto/Filippo, BIEM.webp";
 import flavioPhoto from "../../assets/foto/Flavio, BIEM.webp";
 import juliettePhoto from "../../assets/foto/Juliette, BEMACC.webp";
 import katarinaPhoto from "../../assets/foto/Katarina, BESS.webp";
+import mejaPhoto from "../../assets/foto/Meja, BIEM.jpg";
 import neelPhoto from "../../assets/foto/Neel, BAI.webp";
+import oscarPhoto from "../../assets/foto/Oscar, BIG.png";
 import paoloPhoto from "../../assets/foto/Paolo, BEMACS.webp";
 import rebecaPhoto from "../../assets/foto/Rebeca, BIEM.webp";
 import { usePeopleHighlight } from "../hooks/useLandingMotion";
@@ -46,6 +50,14 @@ const communityMembers = [
     objectPosition: "50% 35%",
   },
   {
+    name: "Meja",
+    programme: "BIEM",
+    image: mejaPhoto,
+    width: 1066,
+    height: 1600,
+    objectPosition: "50% 35%",
+  },
+  {
     name: "Flavio",
     programme: "BIEM",
     image: flavioPhoto,
@@ -78,12 +90,36 @@ const communityMembers = [
     objectPosition: "50% 45%",
   },
   {
+    name: "Oscar",
+    programme: "BIG",
+    image: oscarPhoto,
+    width: 800,
+    height: 800,
+    objectPosition: "50% 38%",
+  },
+  {
     name: "Arina",
     programme: "BIEM",
     image: arinaPhoto,
     width: 900,
     height: 1200,
     objectPosition: "50% 40%",
+  },
+  {
+    name: "Abhiraam",
+    programme: "BIEM",
+    image: abhiraamPhoto,
+    width: 400,
+    height: 400,
+    objectPosition: "50% 42%",
+  },
+  {
+    name: "Andrea",
+    programme: "BESS",
+    image: andreaPhoto,
+    width: 800,
+    height: 800,
+    objectPosition: "50% 42%",
   },
 ] as const;
 
@@ -148,6 +184,25 @@ function normalizeCarouselPosition(track: HTMLDivElement) {
   }
 
   return indexShift;
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      className="mr-1 inline-block h-5 w-5 align-[-0.2em]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
 }
 
 function PeopleSlider() {
@@ -457,8 +512,17 @@ function PeopleSlider() {
         </div>
       </div>
       <figcaption className="mt-5 flex items-center justify-between gap-6 max-[42rem]:flex-col max-[42rem]:items-start max-[42rem]:gap-4">
-        <p className="m-0 max-w-[28ch] text-[clamp(1rem,1.25vw,1.15rem)] leading-[1.45] text-ivory-muted">
-          follow us on Instagram to learn more.
+        <p className="m-0 text-[clamp(1rem,1.25vw,1.15rem)] leading-[1.45] text-ivory-muted max-[42rem]:w-full">
+          follow us on <InstagramIcon />
+          <a
+            className="inline-block h-11 align-baseline leading-11 underline decoration-[color-mix(in_srgb,var(--color-ivory)_42%,transparent)] decoration-1 underline-offset-4 transition-colors duration-[140ms] ease-xpeer-out focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime fine-pointer:hover:text-lime fine-pointer:hover:decoration-lime"
+            href="https://www.instagram.com/xpeer.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Instagram
+          </a>{" "}
+          to learn more.
         </p>
         <div className="flex shrink-0 items-center gap-2 max-[42rem]:w-full max-[42rem]:justify-between">
           <span
